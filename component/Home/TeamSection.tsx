@@ -51,8 +51,88 @@ const TeamSection = () => {
   return (
     <LazyMotion features={domAnimation}>
       <section className="py-10">
-        <div className="max-w-7xl mx-auto ">
-          <div className="flex flex-col md:flex-row items-start gap-4">
+        <div className="max-w-7xl mx-auto px-4">
+          {/* Mobile Layout - Vertical Expansion */}
+          <div className="flex flex-col gap-4 md:hidden">
+            {teamMembers.map((member) => (
+              <m.div
+                key={member.id}
+                onClick={() => toggleExpand(member.id)}
+                className="cursor-pointer overflow-hidden bg-white rounded-[20px]"
+                initial={false}
+                animate={{
+                  height: expandedId === member.id ? "auto" : "340px",
+                }}
+                transition={{
+                  duration: 0.4,
+                  ease: "easeInOut",
+                }}
+              >
+                <div className="flex flex-col">
+                  {/* Image Container */}
+                  <div className="relative w-full h-[340px] flex-shrink-0 bg-gray-200">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover"
+                    />
+
+                    {/* Name overlay when closed */}
+                    {expandedId !== member.id && (
+                      <div className="absolute bottom-0 flex justify-center py-3 flex-col items-center rounded-3xl w-full bg-[#05364a]/50">
+                        <h3 className="text-2xl font-medium text-white mb-1">
+                          {member.name}
+                        </h3>
+                        <p className="text-white/90 font-light text-base">
+                          {member.role}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Details Section - Expands Vertically */}
+                  <AnimatePresence initial={false}>
+                    {expandedId === member.id && (
+                      <m.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{
+                          duration: 0.3,
+                          ease: "easeInOut",
+                        }}
+                        className="flex flex-col relative justify-center bg-soft-bg/19 px-6 py-6"
+                      >
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleExpand(getOtherMemberId(member.id));
+                          }}
+                          className="text-text-blue absolute top-4 right-4 text-sm hover:underline capitalize tracking-wide font-medium"
+                        >
+                          Switch →
+                        </button>
+                        <h3 className="font-medium text-text-blue text-2xl mb-2">
+                          {member.name}
+                        </h3>
+                        <p className="text-text-blue font-light text-base mb-4">
+                          {member.role}
+                        </p>
+                        <hr className="mb-4 border-text-blue/20" />
+                        <p className="text-text-blue text-base leading-relaxed">
+                          {member.description}
+                        </p>
+                      </m.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </m.div>
+            ))}
+          </div>
+
+          {/* Desktop Layout - Horizontal Expansion */}
+          <div className="hidden md:flex items-start gap-4">
             {teamMembers.map((member) => (
               <m.div
                 key={member.id}
@@ -116,7 +196,7 @@ const TeamSection = () => {
                               toggleExpand(getOtherMemberId(member.id));
                             }}
                             className={cn(
-                              "text-text-blue absolute top-0 right-0 p-4 md:p-7 text-sm mb-3 hover:underline capitalize tracking-wide font-medium",
+                              "text-text-blue absolute top-0 right-0 p-4 md:p-7 text-sm mb-3 hover:underline capitalize tracking-wide font-medium cursor-pointer",
                               {
                                 "left-0": member.expandDirection === "left",
                               }
