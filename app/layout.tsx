@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     siteName: "Badal Agency",
     images: [
       {
-        url: "https://www.badalagency.com/og-image.jpg",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "Badal Agency - Graphic Design & Web Development",
