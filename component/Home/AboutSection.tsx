@@ -4,7 +4,7 @@ import React from "react";
 const AboutSection = () => {
   return (
     <section className="py-8 md:py-12 mt-4 md:mt-7 rounded-[20px] bg-soft-bg/19 p-4 md:p-7">
-      <div className="container mx-auto px-2 md:px-4">
+      <div className="container mx-auto px-2 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
           {/* Left Side - Text Content */}
           <div className="space-y-6 md:space-y-10 text-center lg:text-left">

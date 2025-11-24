@@ -24,7 +24,7 @@ const NavBar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100/50">
-      <div className="max-w-7xl mx-auto flex justify-between items-center py-4 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto flex justify-between items-center py-4  ">
         {/* Logo */}
         <div className="relative w-32 md:w-40 shrink-0">
           <Image
@@ -52,7 +52,7 @@ const NavBar = () => {
 
         {/* Desktop CTA Button */}
         {/* Added flex, items-center, justify-center, and leading-none to fix text alignment */}
-        <Button className="hidden md:inline-flex h-12 px-8 rounded-full bg-soft-green hover:bg-soft-green/90 text-white text-lg font-normal items-center justify-center transition-transform hover:scale-105 active:scale-95">
+        <Button className="hidden md:inline-flex h-12 px-16 rounded-full bg-soft-green hover:bg-soft-green/90 text-white text-lg font-normal items-center justify-center transition-transform hover:scale-105 active:scale-95">
           Lets Talk
         </Button>
 

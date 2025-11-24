@@ -24,8 +24,8 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Badge - Left aligned on mobile, right on desktop */}
-          <div className="self-start md:self-auto flex items-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full backdrop-blur-sm">
+          {/* Badge - Left aligned on mobile, right on desktop - Fixed width */}
+          <div className="self-start md:self-auto flex items-center justify-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full backdrop-blur-sm w-full md:w-[220px]">
             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
             <span className="text-white text-sm sm:text-base md:text-lg">
               Available for projects
@@ -44,13 +44,13 @@ const HeroSection = () => {
           {/* Services Grid - Stacked on mobile, side-by-side on desktop */}
           <div className="w-full md:w-auto flex flex-col sm:flex-row gap-4 sm:gap-12 md:gap-0">
             <div className="space-y-4">
-              <div className="flex items-center justify-between sm:justify-start gap-3 text-white group cursor-default">
+              <div className="flex items-center justify-between gap-3 text-white group cursor-default min-w-[200px]">
                 <span>UI UX Design</span>
                 <span className="transition-transform group-hover:translate-x-1">
                   ⟶
                 </span>
               </div>
-              <div className="flex items-center justify-between sm:justify-start gap-3 text-white group cursor-default">
+              <div className="flex items-center justify-between gap-3 text-white group cursor-default min-w-[200px]">
                 <span>Website Design</span>
                 <span className="transition-transform group-hover:translate-x-1">
                   ⟶
@@ -59,13 +59,13 @@ const HeroSection = () => {
             </div>
 
             <div className="space-y-4 sm:ml-0 md:ml-12">
-              <div className="flex items-center justify-between sm:justify-start gap-3 text-white group cursor-default">
+              <div className="flex items-center justify-between gap-3 text-white group cursor-default min-w-[200px]">
                 <span>Web Development</span>
                 <span className="transition-transform group-hover:translate-x-1">
                   ⟶
                 </span>
               </div>
-              <div className="flex items-center justify-between sm:justify-start gap-3 text-white group cursor-default">
+              <div className="flex items-center justify-between gap-3 text-white group cursor-default min-w-[200px]">
                 <span>Graphic Design</span>
                 <span className="transition-transform group-hover:translate-x-1">
                   ⟶
@@ -74,8 +74,8 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Get Started button - Full width on mobile, auto on desktop */}
-          <button className="w-full md:w-auto border-2 border-white text-white px-8 sm:px-12 py-3 sm:py-2 rounded-full hover:bg-white hover:text-slate-900 transition-all duration-300 font-medium text-base sm:text-lg">
+          {/* Get Started button - Full width on mobile, fixed width on desktop */}
+          <button className="w-full md:w-[220px] border-2 border-white text-white px-6 py-3 sm:py-2 rounded-full hover:bg-white hover:text-slate-900 transition-all duration-300 font-medium text-base sm:text-lg">
             Get Started
           </button>
         </div>
