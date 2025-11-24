@@ -3,21 +3,21 @@ import React from "react";
 
 const HeroSection = () => {
   return (
-    <Card className="relative overflow-hidden shadow-none mt-4 p-0 bg-gradient-to-br from-[#0a2540] via-[#0d3d5c] to-[#1a5570] rounded-2xl">
-      <CardContent className="p-6 sm:p-10 md:p-12 lg:p-16 relative">
+    <Card className="relative mt-4 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0a2540] via-[#0d3d5c] to-[#1a5570] p-0 shadow-none">
+      <CardContent className="relative flex flex-col p-6 sm:p-10 md:min-h-[675px] md:p-12 lg:p-16">
         {/* Decorative background elements - Adjusted for mobile visibility */}
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-10 left-4 sm:top-20 sm:left-10 w-20 h-20 sm:w-32 sm:h-32 border border-cyan-400/30 rotate-12" />
-          <div className="absolute bottom-10 right-4 sm:right-20 w-16 h-16 sm:w-24 sm:h-24 border border-cyan-400/20 -rotate-6" />
-          <div className="absolute top-1/2 right-4 sm:right-10 w-2 h-2 bg-cyan-400 rounded-full" />
-          <div className="absolute top-1/3 left-8 sm:left-1/4 w-1 h-1 bg-cyan-300 rounded-full" />
+        <div className="pointer-events-none absolute inset-0 opacity-10">
+          <div className="absolute left-4 top-10 h-20 w-20 rotate-12 border border-cyan-400/30 sm:left-10 sm:top-20 sm:h-32 sm:w-32" />
+          <div className="absolute bottom-10 right-4 h-16 w-16 -rotate-6 border border-cyan-400/20 sm:right-20 sm:h-24 sm:w-24" />
+          <div className="absolute right-4 top-1/2 h-2 w-2 rounded-full bg-cyan-400 sm:right-10" />
+          <div className="absolute left-8 top-1/3 h-1 w-1 rounded-full bg-cyan-300 sm:left-1/4" />
         </div>
 
         {/* Header with availability badge */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-6 md:gap-0 mb-10 md:mb-16 relative z-10">
+        <div className="relative z-10 mb-10 flex flex-col gap-6 md:mb-16 md:flex-row md:items-start md:justify-between md:gap-0">
           <div>
             <div className="relative inline-block">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white leading-tight mb-3">
+              <h1 className="text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
                 We Turn Your Ideas
                 <br className="hidden sm:block" /> Into Reality
               </h1>
@@ -25,33 +25,33 @@ const HeroSection = () => {
           </div>
 
           {/* Badge - Left aligned on mobile, right on desktop - Fixed width */}
-          <div className="self-start md:self-auto flex items-center justify-center gap-2 bg-slate-800/50 px-4 py-2 rounded-full backdrop-blur-sm w-full md:w-[220px]">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-white text-sm sm:text-base md:text-lg">
+          <div className="flex w-full items-center justify-center gap-2 self-start rounded-full bg-slate-800/50 px-4 py-2 backdrop-blur-sm md:w-[220px] md:self-auto">
+            <div className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
+            <span className="text-sm text-white sm:text-base md:text-lg">
               Available for projects
             </span>
           </div>
         </div>
 
         {/* Description */}
-        <p className="text-slate-300 text-lg sm:text-xl mb-12 md:mb-32 max-w-md relative z-10 leading-relaxed">
+        <p className="relative z-10 mb-12 max-w-md text-lg leading-relaxed text-slate-300 sm:text-xl md:mb-32">
           Badal helps you turn your work
           <br className="hidden sm:block" /> into something people remember.
         </p>
 
         {/* Bottom section with services and CTA */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 md:gap-0 relative z-10">
+        <div className="relative z-10 mt-auto flex flex-col items-start justify-between gap-8 md:flex-row md:items-end md:gap-0">
           {/* Services Grid - Stacked on mobile, side-by-side on desktop */}
-          <div className="w-full md:w-auto flex flex-col sm:flex-row gap-4 sm:gap-12 md:gap-0">
+          <div className="flex w-full flex-col gap-4 sm:flex-row sm:gap-12 md:w-auto md:gap-0">
             <div className="space-y-4">
-              <div className="flex items-center justify-between gap-3 text-white group cursor-default min-w-[200px]">
-                <span>UI UX Design</span>
+              <div className="group flex cursor-default items-center gap-1 text-white">
+                <span className="w-40 text-left">UI UX Design</span>
                 <span className="transition-transform group-hover:translate-x-1">
                   ⟶
                 </span>
               </div>
-              <div className="flex items-center justify-between gap-3 text-white group cursor-default min-w-[200px]">
-                <span>Website Design</span>
+              <div className="group flex cursor-default items-center gap-1 text-white">
+                <span className="w-40 text-left">Website Design</span>
                 <span className="transition-transform group-hover:translate-x-1">
                   ⟶
                 </span>
@@ -59,14 +59,14 @@ const HeroSection = () => {
             </div>
 
             <div className="space-y-4 sm:ml-0 md:ml-12">
-              <div className="flex items-center justify-between gap-3 text-white group cursor-default min-w-[200px]">
-                <span>Web Development</span>
+              <div className="group flex cursor-default items-center gap-1 text-white">
+                <span className="w-44 text-left">Web Development</span>
                 <span className="transition-transform group-hover:translate-x-1">
                   ⟶
                 </span>
               </div>
-              <div className="flex items-center justify-between gap-3 text-white group cursor-default min-w-[200px]">
-                <span>Graphic Design</span>
+              <div className="group flex cursor-default items-center gap-1 text-white">
+                <span className="w-44 text-left">Graphic Design</span>
                 <span className="transition-transform group-hover:translate-x-1">
                   ⟶
                 </span>
@@ -75,7 +75,7 @@ const HeroSection = () => {
           </div>
 
           {/* Get Started button - Full width on mobile, fixed width on desktop */}
-          <button className="w-full md:w-[220px] border-2 border-white text-white px-6 py-3 sm:py-2 rounded-full hover:bg-white hover:text-slate-900 transition-all duration-300 font-medium text-base sm:text-lg">
+          <button className="w-full rounded-full border-2 border-white px-6 py-3 text-base font-medium text-white transition-all duration-300 hover:bg-white hover:text-slate-900 sm:py-2 sm:text-lg md:w-[220px]">
             Get Started
           </button>
         </div>
