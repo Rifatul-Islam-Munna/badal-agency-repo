@@ -45,13 +45,13 @@ const HeroSection = () => {
           <div className="flex w-full flex-col gap-4 sm:flex-row sm:gap-12 md:w-auto md:gap-0">
             <div className="space-y-4">
               <div className="group flex cursor-default items-center gap-1 text-white">
-                <span className="w-40 text-left">UI UX Design</span>
+                <span className=" w-44 md:w-40 text-left">UI UX Design</span>
                 <span className="transition-transform group-hover:translate-x-1">
                   ⟶
                 </span>
               </div>
               <div className="group flex cursor-default items-center gap-1 text-white">
-                <span className="w-40 text-left">Website Design</span>
+                <span className=" w-44 md:w-40 text-left">Website Design</span>
                 <span className="transition-transform group-hover:translate-x-1">
                   ⟶
                 </span>
