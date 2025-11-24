@@ -11,6 +11,7 @@ export const kanit = Kanit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.badal.agency"),
   title: "Badal Agency | Graphic Design & Web Development",
   description:
     "Badal Agency is a top creative agency specializing in modern graphic design, web development, UI/UX design, and digital branding. Elevate your business with our professional services.",
@@ -63,7 +64,7 @@ export const metadata: Metadata = {
     title: "Badal Agency | Graphic Design & Web Development",
     description:
       "Top creative agency specializing in modern graphic design, web development, UI/UX design, and digital branding.",
-    url: "https://www.badalagency.agency",
+    url: "https://www.badal.agency",
     siteName: "Badal Agency",
     images: [
       {
@@ -80,7 +81,7 @@ export const metadata: Metadata = {
     title: "Badal Agency | Graphic Design & Web Development",
     description:
       "Professional creative agency for graphic design, web development, and digital branding.",
-    images: ["https://www.badalagency.com/og-image.jpg"],
+    images: ["/logo.png"],
     site: "@badalagency",
   },
 };
@@ -94,8 +95,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Badal Agency",
-    url: "https://www.badalagency.agency",
-    logo: "https://www.badalagency.com/logo.png",
+    url: "https://www.badal.agency",
+    logo: "https://www.badal.agency/public/logo.png",
     sameAs: [
       "https://www.facebook.com/badalagency",
       "https://www.linkedin.com/company/badalagency",
