@@ -1,17 +1,21 @@
+"use client";
+import dynamic from "next/dynamic";
 import { Card, CardContent } from "@/components/ui/card";
 import React from "react";
 
+/* import Threads from "@/components/Threads"; */
+const Threads = dynamic(() => import("@/components/Threads"), { ssr: false });
 const HeroSection = () => {
   return (
     <Card className="relative mt-4 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0a2540] via-[#0d3d5c] to-[#1a5570] p-0 shadow-none">
       <CardContent className="relative flex flex-col justify-between p-6 sm:p-10 md:min-h-[675px] md:p-12 lg:p-16">
         {/* Decorative background elements - Adjusted for mobile visibility */}
-        <div className="pointer-events-none absolute inset-0 opacity-10">
+        {/*  <div className="pointer-events-none absolute inset-0 opacity-10">
           <div className="absolute left-4 top-10 h-20 w-20 rotate-12 border border-cyan-400/30 sm:left-10 sm:top-20 sm:h-32 sm:w-32" />
           <div className="absolute bottom-10 right-4 h-16 w-16 -rotate-6 border border-cyan-400/20 sm:right-20 sm:h-24 sm:w-24" />
           <div className="absolute right-4 top-1/2 h-2 w-2 rounded-full bg-cyan-400 sm:right-10" />
           <div className="absolute left-8 top-1/3 h-1 w-1 rounded-full bg-cyan-300 sm:left-1/4" />
-        </div>
+        </div> */}
 
         {/* Header with availability badge */}
         <div className="relative z-10 mb-10 flex flex-col gap-6 md:mb-16 md:flex-row md:items-start md:justify-between md:gap-0">
@@ -38,6 +42,14 @@ const HeroSection = () => {
           Badal helps you turn your work
           <br className="hidden sm:block" /> into something people remember.
         </p>
+        <div className=" absolute w-full -translate-x-6 md:-translate-x-16 h-full">
+          <Threads
+            amplitude={2.3}
+            distance={0.8}
+            enableMouseInteraction={false}
+            color={[255, 255, 255]}
+          />
+        </div>
 
         {/* Bottom section with services and CTA */}
         <div className="relative z-10 mt-auto flex flex-col items-start justify-between gap-8 md:flex-row md:items-end md:gap-0">

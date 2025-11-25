@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/card";
+import { NumberTicker } from "@/components/ui/number-ticker";
 import React from "react";
 
 const AboutSection = () => {
@@ -7,7 +8,7 @@ const AboutSection = () => {
       <div className="flex h-full items-center px-2">
         <div className="grid w-full grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-12">
           {/* Left Side - Text Content */}
-          <div className="space-y-6 text-center md:space-y-16 lg:text-left">
+          <div className="space-y-6 text-center h-full flex flex-col justify-between  lg:text-left">
             <p className="text-base font-normal text-text-blue md:text-lg">
               About Us
             </p>
@@ -31,9 +32,11 @@ const AboutSection = () => {
               <p className="mb-2 text-center text-sm font-medium text-text-blue sm:mb-4 sm:text-base md:text-lg">
                 Project Complete
               </p>
-              <h3 className="whitespace-nowrap text-3xl font-normal text-text-blue sm:text-5xl lg:text-7xl">
-                351 +
-              </h3>
+
+              <NumberTicker
+                value={351}
+                className="whitespace-nowrap text-3xl font-normal text-text-blue sm:text-5xl lg:text-7xl"
+              />
             </Card>
 
             {/* Row 1, Col 2 - Empty Spacer */}
@@ -47,9 +50,11 @@ const AboutSection = () => {
               <p className="mb-2 text-center text-sm font-medium text-text-blue sm:mb-4 sm:text-base md:text-lg">
                 Satisfied Clients
               </p>
-              <h3 className="whitespace-nowrap text-3xl font-normal text-text-blue sm:text-5xl lg:text-7xl">
-                325 +
-              </h3>
+
+              <NumberTicker
+                value={325}
+                className="whitespace-nowrap text-3xl font-normal text-text-blue sm:text-5xl lg:text-7xl"
+              />
             </Card>
           </div>
         </div>
