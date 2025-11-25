@@ -1,16 +1,25 @@
-import AboutSection from "@/component/Home/AboutSection";
-import HeroSection from "@/component/Home/HeroSection";
-import TeamSection from "@/component/Home/TeamSection";
-import RecentWork from "@/component/Home/RecentWork";
-import Image from "next/image";
-import ServicesSection from "@/component/Home/ServicesSection";
-import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
+import HeroSection from "@/component/Home/HeroSection";
+
+import Image from "next/image";
+
+import { Suspense } from "react";
+const TeamSection = dynamic(() => import("@/component/Home/TeamSection"));
+const ServicesSection = dynamic(
+  () => import("@/component/Home/ServicesSection")
+);
+const RecentWork = dynamic(() => import("@/component/Home/RecentWork"));
+const AboutSection = dynamic(() => import("@/component/Home/AboutSection"));
 export default function Home() {
   return (
     <main className=" max-w-7xl mx-auto bg-white h-full">
       <HeroSection />
-      <AboutSection />
+      <Suspense
+        fallback={<div className=" max-w-7xl min-h-[40dvh] bg-soft-bg"></div>}
+      >
+        <AboutSection />
+      </Suspense>
       <Suspense
         fallback={<div className=" max-w-7xl min-h-[30dvh] bg-soft-bg"></div>}
       >
