@@ -116,6 +116,19 @@
   --sidebar-ring: oklch(0.553 0.013 58.071);
 }
 
+@theme {
+  --animate-shimmer: shimmer 0.9s ease-out forwards;
+
+  @keyframes shimmer {
+    from {
+      background-position: -200% 0%;
+    }
+    to {
+      background-position: 0% 00%;
+    }
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

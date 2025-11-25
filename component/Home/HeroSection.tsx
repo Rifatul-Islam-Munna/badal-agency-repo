@@ -4,7 +4,7 @@ import React from "react";
 const HeroSection = () => {
   return (
     <Card className="relative mt-4 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0a2540] via-[#0d3d5c] to-[#1a5570] p-0 shadow-none">
-      <CardContent className="relative flex flex-col p-6 sm:p-10 md:min-h-[675px] md:p-12 lg:p-16">
+      <CardContent className="relative flex flex-col justify-between p-6 sm:p-10 md:min-h-[675px] md:p-12 lg:p-16">
         {/* Decorative background elements - Adjusted for mobile visibility */}
         <div className="pointer-events-none absolute inset-0 opacity-10">
           <div className="absolute left-4 top-10 h-20 w-20 rotate-12 border border-cyan-400/30 sm:left-10 sm:top-20 sm:h-32 sm:w-32" />
@@ -34,7 +34,7 @@ const HeroSection = () => {
         </div>
 
         {/* Description */}
-        <p className="relative z-10 mb-12 max-w-md text-lg leading-relaxed text-slate-300 sm:text-xl md:mb-32">
+        <p className="relative z-10 mb-12  flex flex-col justify-center flex-1 max-w-md text-lg leading-relaxed text-slate-300 sm:text-xl md:mb-32">
           Badal helps you turn your work
           <br className="hidden sm:block" /> into something people remember.
         </p>

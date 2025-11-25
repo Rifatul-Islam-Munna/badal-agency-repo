@@ -1,7 +1,9 @@
 import AboutSection from "@/component/Home/AboutSection";
 import HeroSection from "@/component/Home/HeroSection";
 import TeamSection from "@/component/Home/TeamSection";
+import RecentWork from "@/component/Home/RecentWork";
 import Image from "next/image";
+import ServicesSection from "@/component/Home/ServicesSection";
 
 export default function Home() {
   return (
@@ -9,6 +11,8 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <TeamSection />
+      <ServicesSection />
+      <RecentWork />
     </main>
   );
 }
