@@ -2,7 +2,7 @@
 import dynamic from "next/dynamic";
 
 import React, { Suspense } from "react";
-const Threads = dynamic(() => import("@/components/Threads"));
+const Threads = dynamic(() => import("@/components/Threads"), { ssr: false });
 
 const ThreadWrapper = () => {
   return (

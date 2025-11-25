@@ -55,6 +55,7 @@ export default function RecentWork() {
               height={1000}
               className=" w-full h-full"
               alt="rect-wrok"
+              loading="lazy"
             />
           </div>
           <div className="col-span-2 h-80 row-span-3 col-start-1 row-start-4 bg-soft-bg  rounded-[20px]">

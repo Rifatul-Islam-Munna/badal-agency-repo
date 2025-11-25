@@ -101,6 +101,7 @@ export default function ServicesSection() {
                 width={1000}
                 height={1600}
                 className="object-cover w-full h-full transition"
+                loading="lazy"
               />
             </div>
           </div>

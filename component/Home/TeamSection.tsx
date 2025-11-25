@@ -97,7 +97,7 @@ const TeamSection = () => {
                       fill
                       className="object-cover"
                       sizes="100vw"
-                      priority
+                      loading="lazy"
                     />
 
                     {/* Mobile Overlay */}
@@ -162,7 +162,7 @@ const TeamSection = () => {
                         fill
                         className="object-cover"
                         sizes="50vw"
-                        priority
+                        loading="lazy"
                       />
                     </div>
 

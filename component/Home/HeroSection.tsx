@@ -40,9 +40,9 @@ const HeroSection = () => {
           Badal helps you turn your work
           <br className="hidden sm:block" /> into something people remember.
         </p>
-        {/*  <div className=" absolute w-full -translate-x-6 md:-translate-x-16 h-full">
+        <div className=" absolute w-full -translate-x-6 md:-translate-x-16 h-full">
           <ThreadWrapper />
-        </div> */}
+        </div>
 
         {/* Bottom section with services and CTA */}
         <div className="relative z-10 mt-auto flex flex-col items-start justify-between gap-8 md:flex-row md:items-end md:gap-0">
