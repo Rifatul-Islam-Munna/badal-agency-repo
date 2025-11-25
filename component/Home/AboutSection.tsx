@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
+
 import { NumberTicker } from "@/components/ui/number-ticker";
-import React from "react";
+import React, { Suspense } from "react";
 
 const AboutSection = () => {
   return (
@@ -32,11 +33,12 @@ const AboutSection = () => {
               <p className="mb-2 text-center text-sm font-medium text-text-blue sm:mb-4 sm:text-base md:text-lg">
                 Project Complete
               </p>
-
-              <NumberTicker
-                value={351}
-                className="whitespace-nowrap text-3xl font-normal text-text-blue sm:text-5xl lg:text-7xl"
-              />
+              <Suspense fallback={null}>
+                <NumberTicker
+                  value={351}
+                  className="whitespace-nowrap text-3xl font-normal text-text-blue sm:text-5xl lg:text-7xl"
+                />
+              </Suspense>
             </Card>
 
             {/* Row 1, Col 2 - Empty Spacer */}
@@ -50,11 +52,12 @@ const AboutSection = () => {
               <p className="mb-2 text-center text-sm font-medium text-text-blue sm:mb-4 sm:text-base md:text-lg">
                 Satisfied Clients
               </p>
-
-              <NumberTicker
-                value={325}
-                className="whitespace-nowrap text-3xl font-normal text-text-blue sm:text-5xl lg:text-7xl"
-              />
+              <Suspense fallback={null}>
+                <NumberTicker
+                  value={325}
+                  className="whitespace-nowrap text-3xl font-normal text-text-blue sm:text-5xl lg:text-7xl"
+                />
+              </Suspense>
             </Card>
           </div>
         </div>

@@ -1,7 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import { Card, CardContent } from "@/components/ui/card";
-import React from "react";
+import React, { Suspense } from "react";
 
 /* import Threads from "@/components/Threads"; */
 const Threads = dynamic(() => import("@/components/Threads"), { ssr: false });
@@ -43,12 +43,14 @@ const HeroSection = () => {
           <br className="hidden sm:block" /> into something people remember.
         </p>
         <div className=" absolute w-full -translate-x-6 md:-translate-x-16 h-full">
-          <Threads
-            amplitude={2.3}
-            distance={0.8}
-            enableMouseInteraction={false}
-            color={[255, 255, 255]}
-          />
+          <Suspense fallback={null}>
+            <Threads
+              amplitude={2.3}
+              distance={0.8}
+              enableMouseInteraction={false}
+              color={[255, 255, 255]}
+            />
+          </Suspense>
         </div>
 
         {/* Bottom section with services and CTA */}
