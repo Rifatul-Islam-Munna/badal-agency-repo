@@ -16,7 +16,7 @@ const services = [
       "Visual Interface Design",
       "Wireframing & Prototyping",
     ],
-    image: image1.src, // Replace with your actual asset
+    image: image1.src,
   },
   {
     title: "Website Design",
@@ -58,16 +58,15 @@ export default function ServicesSection() {
   const [showAll, setShowAll] = useState(false);
 
   return (
-    <section className="bg-[#07364a] py-12 px-4 md:px-8 rounded-3xl max-w-7xl  mt-11 mx-auto">
+    <section className="bg-[#07364a] py-12 px-4 md:px-8 rounded-3xl max-w-7xl mt-11 mx-auto">
       <h2 className="text-lg text-white font-normal mb-6">Services</h2>
       {/* Card container with transitions */}
-      <div className=" flex flex-col gap-6 transition-all duration-500">
+      <div className="flex flex-col gap-6 transition-all duration-500">
         {(showAll ? services : [services[0]]).map((service, idx) => (
           <div
             key={service.title}
-            className="flex items-stretch justify-between bg-white rounded-2xl  pl-6 min-h-[250px] overflow-hidden transition-all duration-500"
+            className="flex items-stretch justify-between bg-white rounded-2xl pl-6 min-h-[250px] overflow-hidden transition-all duration-500"
             style={{
-              // Simple fade-in/stagger could be done with CSS/animation library if needed
               transitionDelay: `${idx * 0.08}s`,
             }}
           >
@@ -93,15 +92,16 @@ export default function ServicesSection() {
                 ))}
               </ul>
             </div>
-            {/* Image Side */}
-            <div className="shrink-0  h-auto  w-fit rounded-xl overflow-hidden bg-gray-100 flex items-center justify-center">
+            {/* Image Side (only on desktop) */}
+            <div className="hidden md:flex md:w-[440px] h-full rounded-xl overflow-hidden bg-gray-100 items-center justify-center">
               <Image
                 src={service.image}
                 alt={`${service.title} illustration`}
-                width={1000}
-                height={1600}
+                width={440}
+                height={250}
                 className="object-cover w-full h-full transition"
                 loading="lazy"
+                sizes="440px"
               />
             </div>
           </div>
@@ -111,7 +111,7 @@ export default function ServicesSection() {
       <div className="flex justify-center mt-6">
         {!showAll && (
           <button
-            className="text-xl px-6 py-2 rounded-lg text-white font-medium   transition-all duration-400 "
+            className="text-xl px-6 py-2 rounded-lg text-white font-medium transition-all duration-400"
             onClick={() => setShowAll(true)}
           >
             See More

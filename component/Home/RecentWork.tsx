@@ -14,18 +14,44 @@ export default function RecentWork() {
 
   const categories = ["all", "ui ux", "website", "graphic", "logo"];
 
+  // All images (update for filtering later if you want tab filtering)
+  const images = [image1, image4, image2, image5, image3, image6, image7];
+  const gridImagesDesktop = [
+    {
+      src: image1.src,
+      grid: "col-span-2 row-span-3 row-start-1 col-start-1 h-80",
+    },
+    {
+      src: image4.src,
+      grid: "col-span-2 row-span-3 row-start-1 col-start-5 h-80",
+    },
+    {
+      src: image2.src,
+      grid: "col-span-2 row-span-3 row-start-4 col-start-1 h-80",
+    },
+    {
+      src: image5.src,
+      grid: "col-span-2 row-span-3 row-start-4 col-start-5 h-80",
+    },
+    { src: image3.src, grid: "col-span-2 row-span-6 row-start-1 col-start-3" },
+  ];
+  const gridImagesDesktop2 = [
+    { src: image6.src, grid: "col-span-2 row-span-3 h-64" },
+    { src: image7.src, grid: "col-span-2 row-span-3 col-start-3 h-64" },
+  ];
+
   return (
-    <section className=" max-w-7xl mx-auto py-11 ">
-      <h1 className=" mx-auto text-center text-3xl font-normal text-text-blue py-3">
+    <section className="max-w-7xl mx-auto py-11">
+      <h1 className="mx-auto text-center text-3xl font-normal text-text-blue py-3">
         Our Recent Work
       </h1>
       <div className="border-b-3 border-text-blue/20 flex justify-center items-center">
-        <nav className="flex space-x-8 overflow-x-auto scrollbar-hide snap-x  text-text-blue snap-mandatory scroll-smooth -webkit-overflow-scrolling-touch">
+        <nav className="flex space-x-8 overflow-x-auto scrollbar-hide snap-x text-text-blue snap-mandatory scroll-smooth -webkit-overflow-scrolling-touch">
           {categories.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`py-4 px-1  border-b-2 font-normal text-lg capitalize transition-colors duration-500 whitespace-nowrap snap-start flex-shrink-0 ${
+              className={`py-4 px-1 border-b-2 font-normal text-lg capitalize transition-colors duration-500 whitespace-nowrap snap-start flex-shrink-0 ${
                 activeTab === tab
                   ? "border-soft-green text-text-blue"
                   : "border-transparent text-gray-500 hover:text-soft-green"
@@ -37,76 +63,63 @@ export default function RecentWork() {
         </nav>
       </div>
 
-      <div className=" w-full  py-6 flex flex-col  gap-3 min-h-dvh ">
-        <div className="grid grid-cols-6 grid-rows-6 gap-4 ">
-          <div className="col-span-2 overflow-hidden  group  row-span-3 relative  bg-soft-bg h-80 rounded-[20px] ">
+      {/* Desktop Grid */}
+      <div className="hidden md:block w-full py-6 flex flex-col gap-3 min-h-dvh">
+        <div className="grid grid-cols-6 grid-rows-6 gap-4">
+          {gridImagesDesktop.map((img) => (
+            <div
+              key={img.src}
+              className={`overflow-hidden group relative bg-soft-bg rounded-[20px] ${img.grid}`}
+            >
+              <Image
+                src={img.src}
+                alt="recent-work"
+                width={1000}
+                height={1000}
+                quality={70}
+                loading="lazy"
+                className="w-full h-full object-cover transition"
+                sizes="(min-width: 768px) 400px, 100vw" // Desktop/large screens
+              />
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-4 grid-rows-4 gap-4 mt-6">
+          {gridImagesDesktop2.map((img) => (
+            <div
+              key={img.src}
+              className={`overflow-hidden group relative bg-soft-bg rounded-[20px] ${img.grid}`}
+            >
+              <Image
+                src={img.src}
+                alt="recent-work"
+                width={1000}
+                height={1000}
+                quality={70}
+                loading="lazy"
+                className="w-full h-full object-cover transition"
+                sizes="(min-width: 768px) 400px, 100vw"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* Mobile: Stacked Images */}
+      <div className="md:hidden w-full flex flex-col gap-5 py-6">
+        {images.map((img, i) => (
+          <div key={i} className="rounded-[20px] overflow-hidden bg-soft-bg">
             <Image
-              src={image1.src}
-              width={1000}
-              height={1000}
-              className=" w-full h-full"
-              alt="rect-wrok"
-            />
-          </div>
-          <div className="col-span-2 h-80 row-span-3 col-start-5 row-start-1 bg-soft-bg  rounded-[20px]">
-            <Image
-              src={image4.src}
-              width={1000}
-              height={1000}
-              className=" w-full h-full"
-              alt="rect-wrok"
+              src={img.src}
+              alt="recent-work"
+              width={700}
+              height={700}
+              quality={60}
               loading="lazy"
+              className="w-full h-auto object-cover transition"
+              sizes="100vw"
             />
           </div>
-          <div className="col-span-2 h-80 row-span-3 col-start-1 row-start-4 bg-soft-bg  rounded-[20px]">
-            <Image
-              src={image2.src}
-              width={1000}
-              height={1000}
-              className=" w-full h-full"
-              alt="rect-wrok"
-            />
-          </div>
-          <div className="col-span-2 h-80 row-span-3 col-start-5 row-start-4 bg-soft-bg  rounded-[20px]">
-            <Image
-              src={image5.src}
-              width={1000}
-              height={1000}
-              className=" w-full h-full"
-              alt="rect-wrok"
-            />
-          </div>
-          <div className="col-span-2 row-span-6   col-start-3 row-start-1 bg-soft-bg  rounded-[20px]">
-            <Image
-              src={image3.src}
-              width={1000}
-              height={1000}
-              className=" w-full h-full"
-              alt="rect-wrok"
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-4 grid-rows-4 gap-4">
-          <div className="col-span-2 row-span-3 bg-soft-bg h-64  rounded-[20px]">
-            <Image
-              src={image6.src}
-              width={1000}
-              height={1000}
-              className=" w-full h-full"
-              alt="rect-wrok"
-            />
-          </div>
-          <div className="col-span-2 row-span-3 col-start-3 bg-soft-bg  rounded-[20px]">
-            <Image
-              src={image7.src}
-              width={1000}
-              height={1000}
-              className=" w-full h-full"
-              alt="rect-wrok"
-            />
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );
