@@ -12,14 +12,22 @@ const ThreadWrapper = () => {
   const [showThreads, setShowThreads] = useState(false);
 
   useEffect(() => {
-    // Only load after user interacts (mouse or scroll)
     const handler = () => setShowThreads(true);
-    window.addEventListener("mousemove", handler, { once: true });
+
+    // For desktop: mousemove and scroll
+    if (window.ontouchstart === undefined) {
+      window.addEventListener("mousemove", handler, { once: true });
+    }
+    // For mobile: touchstart and scroll
+    window.addEventListener("touchstart", handler, { once: true });
+
     window.addEventListener("scroll", handler, { once: true });
 
-    // Clean up event listeners
     return () => {
-      window.removeEventListener("mousemove", handler);
+      if (window.ontouchstart === undefined) {
+        window.removeEventListener("mousemove", handler);
+      }
+      window.removeEventListener("touchstart", handler);
       window.removeEventListener("scroll", handler);
     };
   }, []);
