@@ -41,7 +41,7 @@ export default function RecentWork() {
   ];
 
   return (
-    <section className="max-w-7xl mx-auto py-11">
+    <section className="max-w-7xl mx-auto pt-11">
       <h1 className="mx-auto text-center text-3xl font-normal text-text-blue py-3">
         Our Recent Work
       </h1>
@@ -64,7 +64,7 @@ export default function RecentWork() {
       </div>
 
       {/* Desktop Grid */}
-      <div className="hidden md:block w-full py-6 flex flex-col gap-3 min-h-dvh">
+      <div className="hidden md:block w-full pt-6 flex flex-col gap-3 min-h-dvh">
         <div className="grid grid-cols-6 grid-rows-6 gap-4">
           {gridImagesDesktop.map((img) => (
             <div
@@ -76,15 +76,13 @@ export default function RecentWork() {
                 alt="recent-work"
                 width={1000}
                 height={1000}
-                quality={70}
                 loading="lazy"
-                className="w-full h-full object-cover transition"
-                sizes="(min-width: 768px) 400px, 100vw" // Desktop/large screens
+                className="w-full object-cover h-full transition"
               />
             </div>
           ))}
         </div>
-        <div className="grid grid-cols-4 grid-rows-4 gap-4 mt-6">
+        <div className="grid grid-cols-4 grid-rows-2 gap-4 mt-6">
           {gridImagesDesktop2.map((img) => (
             <div
               key={img.src}
@@ -95,17 +93,15 @@ export default function RecentWork() {
                 alt="recent-work"
                 width={1000}
                 height={1000}
-                quality={70}
                 loading="lazy"
-                className="w-full h-full object-cover transition"
-                sizes="(min-width: 768px) 400px, 100vw"
+                className="w-full h-full  object-cover transition"
               />
             </div>
           ))}
         </div>
       </div>
       {/* Mobile: Stacked Images */}
-      <div className="md:hidden w-full flex flex-col gap-5 py-6">
+      <div className="md:hidden w-full flex flex-col gap-5 pt-6">
         {images.map((img, i) => (
           <div key={i} className="rounded-[20px] overflow-hidden bg-soft-bg">
             <Image

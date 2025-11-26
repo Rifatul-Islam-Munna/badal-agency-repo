@@ -1,4 +1,4 @@
-export default function LoadingPage() {
+export default function Loading() {
   return (
     <div className="min-h-screen bg-[#f8fafd]">
       {/* Navbar Skeleton */}

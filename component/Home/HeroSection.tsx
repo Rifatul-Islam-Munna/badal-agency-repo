@@ -5,7 +5,7 @@ import ThreadWrapper from "./ThreadWrapper";
 
 const HeroSection = () => {
   return (
-    <Card className="relative mt-4 overflow-hidden rounded-2xl bg-gradient-to-br from-[#0a2540] via-[#0d3d5c] to-[#1a5570] p-0 shadow-none">
+    <Card className="relative mt-4 max-w-7xl mx-auto overflow-hidden rounded-2xl bg-gradient-to-br from-[#0a2540] via-[#0d3d5c] to-[#1a5570] p-0 shadow-none">
       <CardContent className="relative flex flex-col justify-between p-6 sm:p-10 md:min-h-[675px] md:p-12 lg:p-16">
         {/* Decorative background elements - Adjusted for mobile visibility */}
         {/*  <div className="pointer-events-none absolute inset-0 opacity-10">

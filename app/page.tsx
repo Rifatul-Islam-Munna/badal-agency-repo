@@ -5,6 +5,7 @@ import HeroSection from "@/component/Home/HeroSection";
 import Image from "next/image";
 
 import { Suspense } from "react";
+import ProjectForm from "@/component/Home/ContactUs";
 const TeamSection = dynamic(() => import("@/component/Home/TeamSection"));
 const ServicesSection = dynamic(
   () => import("@/component/Home/ServicesSection")
@@ -13,7 +14,7 @@ const RecentWork = dynamic(() => import("@/component/Home/RecentWork"));
 const AboutSection = dynamic(() => import("@/component/Home/AboutSection"));
 export default function Home() {
   return (
-    <main className=" max-w-7xl mx-auto bg-white h-full">
+    <main className="  mx-auto bg-white h-full">
       <HeroSection />
       <Suspense
         fallback={<div className=" max-w-7xl min-h-[40dvh] bg-soft-bg"></div>}
@@ -35,6 +36,7 @@ export default function Home() {
       >
         <RecentWork />
       </Suspense>
+      <ProjectForm />
     </main>
   );
 }
