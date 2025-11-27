@@ -137,7 +137,7 @@ const TeamSection = () => {
                         Website Developer
                       </p>
                       <a
-                        href="https://www.linkedin.com/in/badal-hossain"
+                        href="https://www.linkedin.com/in/badal-hossain-227a86171/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-12 h-12 rounded-full mt-10 border-2 border-text-blue flex items-center justify-center hover:bg-[#a8c547] hover:text-white hover:border-[#a8c547] transition-colors"
@@ -222,7 +222,7 @@ const TeamSection = () => {
                         Website Developer
                       </p>
                       <a
-                        href="https://www.linkedin.com/in/badal-hossain"
+                        href="https://www.linkedin.com/in/badal-hossain-227a86171/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-12 h-12 rounded-full mt-10 border-2 border-text-blue flex items-center justify-center hover:bg-[#a8c547] hover:text-white hover:border-[#a8c547] transition-colors"
@@ -303,7 +303,7 @@ const TeamSection = () => {
                       </p>
 
                       <a
-                        href="www.linkedin.com/in/rifatul-islam-munna"
+                        href="https://www.linkedin.com/in/rifatul-islam-munna/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-12 h-12 rounded-full mt-10 border-2 border-text-blue flex items-center justify-center hover:bg-[#a8c547] hover:text-white hover:border-[#a8c547] transition-colors"
@@ -391,7 +391,7 @@ const TeamSection = () => {
                         React-native | Building scalable applications.
                       </p>
                       <a
-                        href="www.linkedin.com/in/rifatul-islam-munna"
+                        href="https://www.linkedin.com/in/rifatul-islam-munna/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-12 h-12 rounded-full mt-10 border-2 border-text-blue flex items-center justify-center hover:bg-[#a8c547] hover:text-white hover:border-[#a8c547] transition-colors"

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0d3d4d] text-white rounded-t-3xl mt-12">
+    <footer className="bg-[#0d3d4d] text-white rounded-t-3xl mt-25">
       {/* Contact Information Section */}
       <div className="container mx-auto px-6 py-16">
         <div className=" flex justify-between items-center gap-6 items-center">
@@ -108,7 +108,7 @@ export default function Footer() {
           {/* Social Icons */}
           <div className="flex items-center gap-4">
             <a
-              href="https://www.linkedin.com/in/badal-hossain"
+              href="https://www.linkedin.com/in/badal-hossain-227a86171/"
               target="_blank"
               rel="noopener noreferrer"
               className="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-[#a8c547] hover:border-[#a8c547] transition-colors"
