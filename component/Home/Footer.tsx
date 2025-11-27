@@ -8,10 +8,10 @@ export default function Footer() {
     <footer className="bg-[#0d3d4d] text-white rounded-t-3xl mt-12">
       {/* Contact Information Section */}
       <div className="container mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+        <div className=" flex justify-between items-center gap-6 items-center">
           {/* Email */}
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center flex-shrink-0">
+            <div className="w-14 h-14 rounded-full hover:bg-soft-green border-2 border-white flex items-center justify-center flex-shrink-0">
               <Mail className="w-7 h-7" />
             </div>
             <div>
@@ -27,7 +27,7 @@ export default function Footer() {
 
           {/* WhatsApp 1 */}
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center flex-shrink-0">
+            <div className="w-14 h-14 rounded-full border-2 hover:bg-soft-green border-white flex items-center justify-center flex-shrink-0">
               <Phone className="w-7 h-7" />
             </div>
             <div>
@@ -43,8 +43,8 @@ export default function Footer() {
 
           {/* WhatsApp 2 */}
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center flex-shrink-0">
-              <Phone className="w-7 h-7" />
+            <div className="w-14 h-14 rounded-full border-2 hover:bg-soft-green border-white flex items-center justify-center flex-shrink-0">
+              <Phone className="w-7 h-7 " />
             </div>
             <div>
               <p className="text-xl font-lightopacity-90">whatsapp</p>
@@ -108,7 +108,7 @@ export default function Footer() {
           {/* Social Icons */}
           <div className="flex items-center gap-4">
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/badal-hossain"
               target="_blank"
               rel="noopener noreferrer"
               className="w-12 h-12 rounded-full border-2 border-white flex items-center justify-center hover:bg-[#a8c547] hover:border-[#a8c547] transition-colors"

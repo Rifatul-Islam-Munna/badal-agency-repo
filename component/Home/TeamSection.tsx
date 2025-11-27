@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import image1 from "@/public/image1.png";
 import image2 from "@/public/image2.png";
+import { Linkedin } from "lucide-react";
 
 const TeamSection = () => {
   const [hoveredCard, setHoveredCard] = useState<"left" | "right" | null>(
@@ -135,6 +136,14 @@ const TeamSection = () => {
                         Graphic Designer | UI/UX Designer | User Researcher |
                         Website Developer
                       </p>
+                      <a
+                        href="https://www.linkedin.com/in/badal-hossain"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 rounded-full mt-10 border-2 border-text-blue flex items-center justify-center hover:bg-[#a8c547] hover:text-white hover:border-[#a8c547] transition-colors"
+                      >
+                        <Linkedin className="w-6 h-6" />
+                      </a>
                     </div>
                   </m.div>
                 </div>
@@ -212,6 +221,14 @@ const TeamSection = () => {
                         Graphic Designer | UI/UX Designer | User Researcher |
                         Website Developer
                       </p>
+                      <a
+                        href="https://www.linkedin.com/in/badal-hossain"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 rounded-full mt-10 border-2 border-text-blue flex items-center justify-center hover:bg-[#a8c547] hover:text-white hover:border-[#a8c547] transition-colors"
+                      >
+                        <Linkedin className="w-6 h-6" />
+                      </a>
                     </m.div>
                   </m.div>
                 </div>
@@ -284,6 +301,15 @@ const TeamSection = () => {
                         Full-Stack Developer | Next.js, NestJS, Flutter,
                         React-native | Building scalable applications.
                       </p>
+
+                      <a
+                        href="www.linkedin.com/in/rifatul-islam-munna"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 rounded-full mt-10 border-2 border-text-blue flex items-center justify-center hover:bg-[#a8c547] hover:text-white hover:border-[#a8c547] transition-colors"
+                      >
+                        <Linkedin className="w-6 h-6" />
+                      </a>
                     </div>
                   </m.div>
                 </div>
@@ -364,6 +390,14 @@ const TeamSection = () => {
                         Full-Stack Developer | Next.js, NestJS, Flutter,
                         React-native | Building scalable applications.
                       </p>
+                      <a
+                        href="www.linkedin.com/in/rifatul-islam-munna"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-12 h-12 rounded-full mt-10 border-2 border-text-blue flex items-center justify-center hover:bg-[#a8c547] hover:text-white hover:border-[#a8c547] transition-colors"
+                      >
+                        <Linkedin className="w-6 h-6" />
+                      </a>
                     </m.div>
                   </m.div>
                 </div>
