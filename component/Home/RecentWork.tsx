@@ -8,12 +8,14 @@ import image4 from "@/app/assets/RecentWork/all-banner-4.png";
 import image5 from "@/app/assets/RecentWork/all-banner-5.png";
 import image6 from "@/app/assets/RecentWork/all-banner-6.png";
 import image7 from "@/app/assets/RecentWork/all-banner-7.png";
+import ImageModal from "./ImageModal";
 
 export default function RecentWork() {
   const [activeTab, setActiveTab] = useState("all");
 
   const categories = ["all", "ui ux", "website", "graphic", "logo"];
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
   // All images (update for filtering later if you want tab filtering)
   const images = [image1, image4, image2, image5, image3, image6, image7];
   const gridImagesDesktop = [
@@ -39,6 +41,10 @@ export default function RecentWork() {
     { src: image6.src, grid: "col-span-2 row-span-3 h-64" },
     { src: image7.src, grid: "col-span-2 row-span-3 col-start-3 h-64" },
   ];
+  const handleImageClick = (imageUrl: string) => {
+    setSelectedImage(imageUrl);
+    setIsOpen(true);
+  };
 
   return (
     <section className="max-w-7xl mx-auto pt-11">
@@ -69,6 +75,7 @@ export default function RecentWork() {
           {gridImagesDesktop.map((img) => (
             <div
               key={img.src}
+              onClick={() => handleImageClick(img.src)}
               className={`overflow-hidden group relative bg-soft-bg rounded-[20px] ${img.grid}`}
             >
               <Image
@@ -87,6 +94,7 @@ export default function RecentWork() {
             <div
               key={img.src}
               className={`overflow-hidden group relative bg-soft-bg rounded-[20px] ${img.grid}`}
+              onClick={() => handleImageClick(img.src)}
             >
               <Image
                 src={img.src}
@@ -117,6 +125,11 @@ export default function RecentWork() {
           </div>
         ))}
       </div>
+      <ImageModal
+        imageUrl={selectedImage}
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
     </section>
   );
 }

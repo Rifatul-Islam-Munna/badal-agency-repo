@@ -3,6 +3,7 @@ import { Kanit } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/component/NavBar";
 import Script from "next/script";
+import Footer from "@/component/Home/Footer";
 
 export const kanit = Kanit({
   variable: "--font-kanit",
@@ -123,6 +124,7 @@ export default function RootLayout({
       <body className={` ${kanit.variable}  antialiased bg-white`}>
         <NavBar />
         {children}
+        <Footer />
       </body>
     </html>
   );

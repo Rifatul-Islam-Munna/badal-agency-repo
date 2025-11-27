@@ -31,8 +31,8 @@ const ProjectForm = () => {
   };
 
   return (
-    <div className="border border-t-2 border-l-0 border-r-0 border-b-0 mt-6 border-text-blue/20 bg-white">
-      <div className="flex flex-col lg:flex-row gap-12 max-w-7xl pt-16 mx-auto w-full justify-between">
+    <div className="border border-t-2 border-l-0 border-r-0 mt-12 border-b-0 border-text-blue/20 bg-white">
+      <div className="flex flex-col lg:flex-row gap-52 max-w-7xl pt-16 mt-10 mx-auto w-full justify-between ">
         {/* Left Section - Heading */}
         <div className="w-full lg:w-auto mb-8 lg:mb-0">
           <h2 className="text-[28px] font-normal leading-snug text-[#05364a] ">
