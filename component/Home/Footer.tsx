@@ -17,10 +17,10 @@ export default function Footer() {
             <div>
               <p className="text-xl font-light opacity-90">Email Address</p>
               <a
-                href="mailto:info@badalagency.com"
+                href="mailto:badaldotagency@gmail.com"
                 className="text-2xl font-normal hover:text-[#a8c547] transition-colors"
               >
-                info@badalagency.com
+                badaldotagency@gmail.com
               </a>
             </div>
           </div>
