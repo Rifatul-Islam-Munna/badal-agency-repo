@@ -16,10 +16,10 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "About", href: "#work" },
-    { name: "Service", href: "#work" },
+    { name: "About", href: "#about" },
+    { name: "Service", href: "#service" },
     { name: "Project", href: "#work" },
-    { name: "Contact", href: "#work" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (

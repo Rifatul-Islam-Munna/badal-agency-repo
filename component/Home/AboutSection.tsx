@@ -5,7 +5,10 @@ import React, { Suspense } from "react";
 
 const AboutSection = () => {
   return (
-    <section className=" mt-11 max-w-7xl mx-auto rounded-[20px] bg-soft-bg/19 p-6 sm:p-10 md:min-h-[675px] ">
+    <section
+      id="about"
+      className=" mt-11 max-w-7xl mx-auto rounded-[20px] bg-soft-bg/19 p-6 sm:p-10 md:min-h-[675px] "
+    >
       <div className="flex h-full items-center px-2">
         <div className="grid w-full grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-12">
           {/* Left Side - Text Content */}

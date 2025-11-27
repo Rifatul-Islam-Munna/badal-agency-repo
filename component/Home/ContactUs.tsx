@@ -31,7 +31,7 @@ const ProjectForm = () => {
   };
 
   return (
-    <div className=" mt-13">
+    <section id="contact" className=" mt-13">
       <div className="border border-t-2 border-l-0 border-r-0 border-b-0 border-text-blue/20 bg-white">
         <div className="flex flex-col lg:flex-row gap-52 max-w-7xl pt-25  mx-auto w-full justify-between ">
           {/* Left Section - Heading */}
@@ -151,7 +151,7 @@ const ProjectForm = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

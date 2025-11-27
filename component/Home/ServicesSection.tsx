@@ -60,7 +60,10 @@ export default function ServicesSection() {
 
   return (
     <LazyMotion features={domAnimation}>
-      <section className="bg-[#07364a] pt-10 pb-14 px-4 md:px-8 rounded-3xl max-w-7xl mt-11 mx-auto">
+      <section
+        id="service"
+        className="bg-[#07364a] pt-10 pb-14 px-4 md:px-8 rounded-3xl max-w-7xl mt-11 mx-auto"
+      >
         <m.h2
           className="text-lg text-white font-normal mb-6"
           initial={{ opacity: 0, y: -10 }}
