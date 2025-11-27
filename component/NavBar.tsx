@@ -52,9 +52,9 @@ const NavBar = () => {
 
         {/* Desktop CTA Button */}
         {/* Added flex, items-center, justify-center, and leading-none to fix text alignment */}
-        <button className="hidden md:inline-flex h-12 px-16 rounded-full bg-soft-green hover:bg-soft-green/90 text-white text-lg font-normal items-center justify-center transition-transform hover:scale-105 active:scale-95">
+        <button className="hidden md:inline-flex h-12   rounded-full bg-soft-green hover:bg-soft-green/90 text-white text-lg font-normal items-center justify-center transition-transform hover:scale-105 active:scale-95">
           <a
-            className=" w-full h-full flex justify-center items-center"
+            className=" w-full h-full flex justify-center  px-16 items-center"
             href="mailto:badaldotagency@gmail.com"
           >
             Lets Talk
