@@ -30,8 +30,8 @@ export default function ImageModal({
           <Image
             src={imageUrl}
             alt={alt}
-            width={2000}
-            height={2000}
+            width={1000}
+            height={1000}
             className=" w-full h-full"
             priority
           />
