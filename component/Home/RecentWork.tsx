@@ -47,7 +47,7 @@ export default function RecentWork() {
   };
 
   return (
-    <section className="max-w-7xl mx-auto pt-11">
+    <section id="work" className="max-w-7xl mx-auto pt-11">
       <h1 className="mx-auto text-center text-3xl font-normal text-text-blue py-3">
         Our Recent Work
       </h1>

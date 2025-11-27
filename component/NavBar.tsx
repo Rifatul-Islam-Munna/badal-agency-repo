@@ -11,15 +11,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
+import { RainbowButton } from "@/components/ui/rainbow-button";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "About", href: "#" },
-    { name: "Service", href: "#" },
-    { name: "Project", href: "#" },
-    { name: "Contact", href: "#" },
+    { name: "About", href: "#work" },
+    { name: "Service", href: "#work" },
+    { name: "Project", href: "#work" },
+    { name: "Contact", href: "#work" },
   ];
 
   return (
@@ -52,9 +52,14 @@ const NavBar = () => {
 
         {/* Desktop CTA Button */}
         {/* Added flex, items-center, justify-center, and leading-none to fix text alignment */}
-        <Button className="hidden md:inline-flex h-12 px-16 rounded-full bg-soft-green hover:bg-soft-green/90 text-white text-lg font-normal items-center justify-center transition-transform hover:scale-105 active:scale-95">
-          Lets Talk
-        </Button>
+        <button className="hidden md:inline-flex h-12 px-16 rounded-full bg-soft-green hover:bg-soft-green/90 text-white text-lg font-normal items-center justify-center transition-transform hover:scale-105 active:scale-95">
+          <a
+            className=" w-full h-full flex justify-center items-center"
+            href="mailto:badaldotagency@gmail.com"
+          >
+            Lets Talk
+          </a>
+        </button>
 
         {/* Mobile Menu (Shadcn Sheet) */}
         <div className="md:hidden">
