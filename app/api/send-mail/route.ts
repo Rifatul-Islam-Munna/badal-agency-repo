@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail({
       from: `"Agency Contact Form" <${process.env.GMAIL_USER}>`,
       to: 'badaldotagency@gmail.com',
-      cc: ['munnarifat20@gmail.com', 'colleague2@example.com'], // Add your CC emails here
+      cc: ['munnarifat20@gmail.com'], // Add your CC emails here
       replyTo: email,
       subject: `New Project Inquiry from ${name}`,
       attachments: attachments,
