@@ -4,6 +4,8 @@ import "./globals.css";
 import NavBar from "@/component/NavBar";
 import Script from "next/script";
 import Footer from "@/component/Home/Footer";
+import { Toaster } from "sonner";
+import { Suspense } from "react";
 
 export const kanit = Kanit({
   variable: "--font-kanit",
@@ -121,6 +123,9 @@ export default function RootLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <Suspense>
+        <Toaster />
+      </Suspense>
       <body className={` ${kanit.variable}  antialiased bg-white`}>
         <NavBar />
         {children}

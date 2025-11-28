@@ -142,7 +142,7 @@ const TeamSection = () => {
                         rel="noopener noreferrer"
                         className="w-12 h-12 rounded-full mt-10 border-2 border-text-blue flex items-center justify-center hover:bg-[#a8c547] hover:text-white hover:border-[#a8c547] transition-colors"
                       >
-                        <Linkedin className="w-6 h-6" />
+                        <Linkedin className="w-6 h-6 text-text-blue" />
                       </a>
                     </div>
                   </m.div>
@@ -227,7 +227,7 @@ const TeamSection = () => {
                         rel="noopener noreferrer"
                         className="w-12 h-12 rounded-full mt-10 border-2 border-text-blue flex items-center justify-center hover:bg-[#a8c547] hover:text-white hover:border-[#a8c547] transition-colors"
                       >
-                        <Linkedin className="w-6 h-6" />
+                        <Linkedin className="w-6 h-6 text-text-blue" />
                       </a>
                     </m.div>
                   </m.div>
@@ -308,7 +308,7 @@ const TeamSection = () => {
                         rel="noopener noreferrer"
                         className="w-12 h-12 rounded-full mt-10 border-2 border-text-blue flex items-center justify-center hover:bg-[#a8c547] hover:text-white hover:border-[#a8c547] transition-colors"
                       >
-                        <Linkedin className="w-6 h-6" />
+                        <Linkedin className="w-6 h-6 text-text-blue" />
                       </a>
                     </div>
                   </m.div>
@@ -396,7 +396,7 @@ const TeamSection = () => {
                         rel="noopener noreferrer"
                         className="w-12 h-12 rounded-full mt-10 border-2 border-text-blue flex items-center justify-center hover:bg-[#a8c547] hover:text-white hover:border-[#a8c547] transition-colors"
                       >
-                        <Linkedin className="w-6 h-6" />
+                        <Linkedin className="w-6 h-6 text-text-blue" />
                       </a>
                     </m.div>
                   </m.div>

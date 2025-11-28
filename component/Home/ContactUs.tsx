@@ -2,6 +2,7 @@
 
 import { Paperclip } from "lucide-react";
 import React, { useState } from "react";
+import { toast } from "sonner";
 
 const ProjectForm = () => {
   const [formData, setFormData] = useState({
@@ -9,8 +10,9 @@ const ProjectForm = () => {
     email: "",
     budget: "",
     projectDetails: "",
-    attachment: null,
+    attachment: null as File | null,
   });
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -25,9 +27,55 @@ const ProjectForm = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
+    setLoading(true);
+
+    try {
+      // Create FormData to send file
+      const submitData = new FormData();
+      submitData.append("name", formData.name);
+      submitData.append("email", formData.email);
+      submitData.append("budget", formData.budget);
+      submitData.append("description", formData.projectDetails);
+
+      if (formData.attachment) {
+        submitData.append("file", formData.attachment);
+      }
+
+      const response = await fetch("/api/send-mail", {
+        method: "POST",
+        body: submitData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast.success("Message sent successfully!");
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          budget: "",
+          projectDetails: "",
+          attachment: null,
+        });
+        // Reset file input
+        const fileInput = document.getElementById(
+          "file-upload"
+        ) as HTMLInputElement;
+        if (fileInput) fileInput.value = "";
+      } else {
+        toast.error(
+          result.error || "Failed to send message. Please try again."
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Failed to send message. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -62,6 +110,7 @@ const ProjectForm = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
+                    required
                     className="w-full px-4 py-3 border bg-bg-light/60 border-[#dfdfdf] focus:outline-none focus:border-[#05364a] transition-colors"
                   />
                 </div>
@@ -74,6 +123,7 @@ const ProjectForm = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    required
                     className="w-full px-4 py-3 border border-[#dfdfdf] bg-bg-light/60 focus:outline-none focus:border-[#05364a] transition-colors"
                   />
                 </div>
@@ -90,6 +140,7 @@ const ProjectForm = () => {
                     name="budget"
                     value={formData.budget}
                     onChange={handleInputChange}
+                    required
                     className="w-full px-4 py-3 border bg-bg-light/60 border-[#dfdfdf] focus:outline-none focus:border-[#05364a] transition-colors pr-20"
                   />
                   <span className="absolute border-l h-full border-2 border-r-0 flex justify-center items-center border-t-0 border-b-0 pl-10 right-4 top-1/2 -translate-y-1/2 text-[#05364a] text-xl font-normal">
@@ -108,6 +159,7 @@ const ProjectForm = () => {
                     type="file"
                     id="file-upload"
                     onChange={handleFileChange}
+                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt,.zip"
                     className="hidden"
                   />
                   <label
@@ -133,6 +185,7 @@ const ProjectForm = () => {
                   name="projectDetails"
                   value={formData.projectDetails}
                   onChange={handleInputChange}
+                  required
                   rows={4}
                   className="w-full px-4 py-3 border bg-bg-light/60 border-[#dfdfdf] focus:outline-none focus:border-[#05364a] transition-colors resize-none"
                 />
@@ -142,9 +195,10 @@ const ProjectForm = () => {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="bg-[#98c73d] hover:bg-[#88b72d] text-xl text-white font-medium px-20 py-3 rounded-full transition-colors"
+                  disabled={loading}
+                  className="bg-[#98c73d] hover:bg-[#88b72d] text-xl text-white font-medium px-20 py-3 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Submit
+                  {loading ? "Sending..." : "Submit"}
                 </button>
               </div>
             </form>

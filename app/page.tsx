@@ -5,13 +5,14 @@ import HeroSection from "@/component/Home/HeroSection";
 import Image from "next/image";
 
 import { Suspense } from "react";
-import ProjectForm from "@/component/Home/ContactUs";
+
 const TeamSection = dynamic(() => import("@/component/Home/TeamSection"));
 const ServicesSection = dynamic(
   () => import("@/component/Home/ServicesSection")
 );
 const RecentWork = dynamic(() => import("@/component/Home/RecentWork"));
 const AboutSection = dynamic(() => import("@/component/Home/AboutSection"));
+const ProjectForm = dynamic(() => import("@/component/Home/ContactUs"));
 export default function Home() {
   return (
     <main className="  mx-auto bg-white h-full">
@@ -36,7 +37,9 @@ export default function Home() {
       >
         <RecentWork />
       </Suspense>
-      <ProjectForm />
+      <Suspense>
+        <ProjectForm />
+      </Suspense>
     </main>
   );
 }
