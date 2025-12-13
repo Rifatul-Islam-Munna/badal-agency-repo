@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import { Card, CardContent } from "@/components/ui/card";
 import React, { Suspense } from "react";
 import ThreadWrapper from "./ThreadWrapper";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -81,7 +82,9 @@ const HeroSection = () => {
 
           {/* Get Started button - Full width on mobile, fixed width on desktop */}
           <button className="w-full rounded-full border-2 border-white px-6 py-3 text-base font-medium text-white transition-all duration-300 hover:bg-white hover:text-slate-900 sm:py-2 sm:text-lg md:w-[220px]">
-            Get Started
+            <Link className=" w-full h-full" href={"/#contact"}>
+              Get Started
+            </Link>
           </button>
         </div>
       </CardContent>
