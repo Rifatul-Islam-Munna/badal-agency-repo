@@ -21,8 +21,8 @@ const HeroSection = () => {
           <div>
             <div className="relative inline-block">
               <h1 className="text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
-                Custom Web Development Agency
-                <br className="hidden sm:block" /> for USA, UK & Europe
+                We Turn Your Ideas
+                <br className="hidden sm:block" /> Into Reality
               </h1>
             </div>
           </div>
@@ -38,8 +38,8 @@ const HeroSection = () => {
 
         {/* Description */}
         <p className="relative z-10 mb-12  flex flex-col justify-center flex-1 max-w-md text-lg leading-relaxed text-slate-300 sm:text-xl md:mb-32">
-          We build websites, web apps, and SEO-ready digital products for
-          startups and businesses in Chicago, London, and across Europe.
+          Badal helps you turn your work
+          <br className="hidden sm:block" /> into something people remember.
         </p>
         <div className=" absolute w-full -translate-x-6 md:-translate-x-16 h-full">
           <ThreadWrapper />

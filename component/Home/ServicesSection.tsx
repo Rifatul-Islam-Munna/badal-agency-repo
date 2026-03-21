@@ -11,7 +11,7 @@ import { LazyMotion, domAnimation, m } from "framer-motion";
 const services = [
   {
     title: "UI UX Design",
-    subtitle: "Creating user-friendly product and website experiences",
+    subtitle: "Creating user-friendly UI/UX designs",
     features: [
       "User Research & Analysis",
       "Visual Interface Design",
@@ -21,24 +21,23 @@ const services = [
   },
   {
     title: "Website Design",
-    subtitle: "Web design and development for modern businesses",
+    subtitle: "Designing responsive, user-friendly websites",
     features: [
-      "Responsive web design",
-      "UI/UX design / responsive design",
+      "Web design",
+      "UI/UX design /responsive design",
       "Landing page design",
     ],
     image: image2.src,
   },
   {
     title: "Web Development",
-    subtitle: "Custom web development and web app delivery",
+    subtitle: "Designing responsive, user-friendly websites",
     features: [
-      "Custom web app development",
       "HTML5, CSS3, & JavaScript",
       "Frontend (React, Vue, Angular)",
       "Backend (Node.js, Nest.js)",
-      "Mobile web development",
-      "SEO-ready optimization & performance",
+      "WordPress, Shopify",
+      "Optimization & Performance",
     ],
     image: image3.src,
   },
