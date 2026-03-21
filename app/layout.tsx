@@ -47,16 +47,16 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: `${siteName} | Digital Agency in Bangladesh`,
+    title: `${siteName} | Web Development Agency for USA, UK & Europe`,
     description: defaultDescription,
     url: "/",
     siteName,
-    locale: "en_BD",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} | Digital Agency in Bangladesh`,
+    title: `${siteName} | Web Development Agency for USA, UK & Europe`,
     description: defaultDescription,
   },
 };
@@ -67,7 +67,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-BD">
+    <html lang="en">
       <Suspense>
         <Toaster />
       </Suspense>

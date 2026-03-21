@@ -69,7 +69,7 @@ const TeamSection = () => {
 
   return (
     <LazyMotion features={domAnimation}>
-      <section className=" mt-11   flex items-center">
+      <section aria-label="Our team" className=" mt-11   flex items-center">
         <div className="max-w-7xl w-full mx-auto sm:h-[400px]">
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 sm:h-full">
             {/* ================== LEFT CARD ================== */}

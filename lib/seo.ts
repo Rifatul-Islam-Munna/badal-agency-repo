@@ -5,55 +5,30 @@ const FALLBACK_SITE_URL = "https://www.badal.agency";
 
 const keywordList = [
   "Badal Agency",
-  "digital agency Bangladesh",
-  "digital agency Dhaka",
-  "web development company Dhaka",
-  "IT services agency Bangladesh",
-  "full service digital agency Dhaka",
-  "custom web application development Bangladesh",
-  "web app development company Dhaka",
-  "SaaS web application development Bangladesh",
-  "hire web app developer Bangladesh",
-  "enterprise web application Bangladesh",
-  "professional website design Bangladesh",
-  "business website development Dhaka",
-  "affordable website design company Bangladesh",
-  "responsive website design Dhaka",
-  "small business website design Bangladesh",
-  "UI UX design agency Bangladesh",
-  "user interface design service Dhaka",
-  "mobile app UI design company Bangladesh",
-  "product design agency Dhaka",
-  "hire UI UX designer Bangladesh",
-  "SEO service provider Bangladesh",
-  "local SEO agency Dhaka",
-  "Google ranking service Bangladesh",
-  "affordable SEO packages Bangladesh",
-  "SEO expert for small business Dhaka",
-  "digital marketing agency Dhaka",
-  "social media marketing Bangladesh",
-  "online marketing company Dhaka",
-  "digital branding agency Bangladesh",
-  "content marketing service Bangladesh",
-  "web design agency in Dhaka Bangladesh",
-  "best digital agency in Bangladesh for startups",
-  "affordable web development Dhaka Bangladesh",
-  "top UI UX design studio Dhaka",
-  "SEO company for small business Bangladesh",
-  "how to get a professional website in Bangladesh",
-  "best web development agency for startup Bangladesh",
-  "affordable SEO services for small business Dhaka",
-  "custom web application for business Bangladesh",
-  "UI UX design for mobile app Bangladesh",
-  "website redesign service Dhaka Bangladesh",
-  "hire web developer Bangladesh",
-  "get SEO services Bangladesh",
-  "web design agency pricing Bangladesh",
-  "web application development cost Bangladesh",
-  "digital agency for ecommerce Bangladesh",
-  "website maintenance Bangladesh",
-  "branding agency Bangladesh",
-  "app design agency Bangladesh",
+  "custom web development agency",
+  "best web development companies",
+  "web development company chicago",
+  "web development and seo company",
+  "web development services near me",
+  "web app development",
+  "web design development",
+  "best agency for web development",
+  "mobile web development agency",
+  "digital agency web development",
+  "web development agency usa",
+  "web development agency uk",
+  "web development agency london",
+  "custom website development usa",
+  "web app development company usa",
+  "website design agency london",
+  "web design and development agency",
+  "seo and web development agency",
+  "ui ux design agency usa",
+  "digital agency europe",
+  "web development company europe",
+  "remote web development agency",
+  "custom software and web app development",
+  "startup web development agency",
 ];
 
 export const siteName = "Badal Agency";
@@ -64,16 +39,18 @@ export const contactPhones = [
 ] as const;
 
 export const defaultDescription =
-  "Badal Agency is a digital agency in Dhaka, Bangladesh focused on web development, custom web applications, UI/UX design, website design, branding, SEO, and digital growth services for startups and businesses.";
+  "Badal Agency is a custom web development and SEO company delivering web apps, web design and development, UI/UX, and branding for the USA, UK, and Europe.";
 
-export const homeTitle = "Digital Agency Bangladesh for Web, App & UI/UX";
+export const homeTitle =
+  "Custom Web Development Agency for USA, UK & Europe";
 export const homeDescription =
-  "Dhaka-based digital agency for custom websites, web applications, UI/UX design, branding, SEO, and digital services for startups, small businesses, and growing companies in Bangladesh.";
+  "Web app development, web design and development, UI/UX, and SEO services for businesses in Chicago, London, the UK, and across Europe.";
 
 export const serviceTypes = [
-  "Custom Web Application Development",
+  "Custom Web Development",
+  "Web App Development",
   "Website Design and Development",
-  "SaaS Product Design and Development",
+  "Mobile Web Development",
   "UI/UX Design",
   "SEO Services",
   "Digital Marketing",
@@ -161,14 +138,21 @@ export function getSiteStructuredData() {
           addressLocality: "Dhaka",
           addressCountry: "BD",
         },
-        areaServed: ["Dhaka, Bangladesh", "Bangladesh"],
+        areaServed: [
+          "United States",
+          "Chicago",
+          "United Kingdom",
+          "London",
+          "Europe",
+          "Remote",
+        ],
         contactPoint: [
           {
             "@type": "ContactPoint",
             contactType: "sales",
             email: contactEmail,
             telephone: contactPhones[0],
-            areaServed: "BD",
+            areaServed: ["United States", "United Kingdom", "Europe"],
             availableLanguage: ["English", "Bengali"],
           },
           {
@@ -176,7 +160,7 @@ export function getSiteStructuredData() {
             contactType: "customer support",
             email: contactEmail,
             telephone: contactPhones[1],
-            areaServed: "BD",
+            areaServed: ["United States", "United Kingdom", "Europe"],
             availableLanguage: ["English", "Bengali"],
           },
         ],
@@ -199,7 +183,7 @@ export function getSiteStructuredData() {
         url: baseUrl,
         name: siteName,
         description: defaultDescription,
-        inLanguage: "en-BD",
+        inLanguage: "en",
         publisher: {
           "@id": `${baseUrl}/#organization`,
         },
@@ -221,7 +205,7 @@ export function getHomeStructuredData() {
         url: baseUrl,
         name: fullTitle,
         description: homeDescription,
-        inLanguage: "en-BD",
+        inLanguage: "en",
         isPartOf: {
           "@id": `${baseUrl}/#website`,
         },
@@ -240,7 +224,14 @@ export function getHomeStructuredData() {
         url: baseUrl,
         image: buildAbsoluteUrl("/logo.png"),
         description: homeDescription,
-        areaServed: ["Dhaka, Bangladesh", "Bangladesh", "Remote"],
+        areaServed: [
+          "United States",
+          "Chicago",
+          "United Kingdom",
+          "London",
+          "Europe",
+          "Remote",
+        ],
         availableLanguage: ["English", "Bengali"],
         serviceType: serviceTypes,
         provider: {

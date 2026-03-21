@@ -78,7 +78,7 @@ export default function Footer() {
           </div>
 
           {/* Navigation Links */}
-          <nav className="flex items-center gap-12">
+          <nav aria-label="Footer navigation" className="flex items-center gap-12">
             <Link
               href="#about"
               className=" text-xl hover:text-[#a8c547] transition-colors"

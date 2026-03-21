@@ -1,6 +1,8 @@
-import { Card, CardContent } from "@/components/ui/card";
-import ThreadWrapper from "./ThreadWrapper";
 import Link from "next/link";
+
+import { Card, CardContent } from "@/components/ui/card";
+
+import ThreadWrapper from "./ThreadWrapper";
 
 const HeroSection = () => {
   return (
@@ -19,8 +21,8 @@ const HeroSection = () => {
           <div>
             <div className="relative inline-block">
               <h1 className="text-3xl font-semibold leading-tight text-white sm:text-4xl md:text-5xl">
-                We Turn Your Ideas
-                <br className="hidden sm:block" /> Into Reality
+                Custom Web Development Agency
+                <br className="hidden sm:block" /> for USA, UK & Europe
               </h1>
             </div>
           </div>
@@ -36,8 +38,8 @@ const HeroSection = () => {
 
         {/* Description */}
         <p className="relative z-10 mb-12  flex flex-col justify-center flex-1 max-w-md text-lg leading-relaxed text-slate-300 sm:text-xl md:mb-32">
-          Badal helps you turn your work
-          <br className="hidden sm:block" /> into something people remember.
+          We build websites, web apps, and SEO-ready digital products for
+          startups and businesses in Chicago, London, and across Europe.
         </p>
         <div className=" absolute w-full -translate-x-6 md:-translate-x-16 h-full">
           <ThreadWrapper />
@@ -46,36 +48,39 @@ const HeroSection = () => {
         {/* Bottom section with services and CTA */}
         <div className="relative z-10 mt-auto flex flex-col items-start justify-between gap-8 md:flex-row md:items-end md:gap-0">
           {/* Services Grid - Stacked on mobile, side-by-side on desktop */}
-          <div className="flex w-full flex-col gap-4 sm:flex-row sm:gap-12 md:w-auto md:gap-0">
-            <div className="space-y-4">
-              <div className="group flex cursor-default items-center gap-1 text-white">
+          <div
+            aria-label="Core services"
+            className="flex w-full flex-col gap-4 sm:flex-row sm:gap-12 md:w-auto md:gap-0"
+          >
+            <ul className="space-y-4">
+              <li className="group flex cursor-default items-center gap-1 text-white">
                 <span className=" w-44 md:w-40 text-left">UI UX Design</span>
                 <span className="transition-transform group-hover:translate-x-1">
-                  ⟶
+                  {"\u27F6"}
                 </span>
-              </div>
-              <div className="group flex cursor-default items-center gap-1 text-white">
+              </li>
+              <li className="group flex cursor-default items-center gap-1 text-white">
                 <span className=" w-44 md:w-40 text-left">Website Design</span>
                 <span className="transition-transform group-hover:translate-x-1">
-                  ⟶
+                  {"\u27F6"}
                 </span>
-              </div>
-            </div>
+              </li>
+            </ul>
 
-            <div className="space-y-4 sm:ml-0 md:ml-12">
-              <div className="group flex cursor-default items-center gap-1 text-white">
+            <ul className="space-y-4 sm:ml-0 md:ml-12">
+              <li className="group flex cursor-default items-center gap-1 text-white">
                 <span className="w-44 text-left">Web Development</span>
                 <span className="transition-transform group-hover:translate-x-1">
-                  ⟶
+                  {"\u27F6"}
                 </span>
-              </div>
-              <div className="group flex cursor-default items-center gap-1 text-white">
+              </li>
+              <li className="group flex cursor-default items-center gap-1 text-white">
                 <span className="w-44 text-left">Graphic Design</span>
                 <span className="transition-transform group-hover:translate-x-1">
-                  ⟶
+                  {"\u27F6"}
                 </span>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
 
           {/* Get Started button - Full width on mobile, fixed width on desktop */}

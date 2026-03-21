@@ -22,13 +22,14 @@ const AboutSection = () => {
               id="about-heading"
               className="text-2xl font-normal leading-snug text-text-blue sm:text-3xl lg:text-[32px]"
             >
-              We are A Small Creative Agency Helping Brands Grow Through
-              Strategy, Design, And Innovation.
+              We help startups and growing brands across the USA, UK, and
+              Europe grow through web design, custom development, and digital
+              strategy.
             </h2>
 
             <p className="text-xl font-normal text-text-blue/90 sm:text-2xl lg:text-3xl">
-              We Provide UI/UX design, build websites, Graphic design,
-              Development and more...
+              We provide web app development, web design and development,
+              UI/UX, mobile web experiences, SEO support, and branding.
             </p>
           </div>
 

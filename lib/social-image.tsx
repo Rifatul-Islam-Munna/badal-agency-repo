@@ -5,11 +5,11 @@ const badges = [
   "Web Apps",
   "UI/UX Design",
   "SEO",
-  "Branding",
+  "USA UK Europe",
 ];
 
 export const socialImageAlt =
-  "Badal Agency digital services for web development, UI UX design, branding, and SEO in Bangladesh.";
+  "Badal Agency custom web development, web app development, UI UX design, and SEO services for the USA, UK, and Europe.";
 
 export const socialImageSize = {
   width: 1200,
@@ -60,7 +60,7 @@ export function generateSocialImage() {
               lineHeight: 1.05,
             }}
           >
-            Digital agency for web, app and UI/UX growth
+            Custom web development agency for USA, UK and Europe
           </div>
           <div
             style={{
@@ -71,8 +71,8 @@ export function generateSocialImage() {
               color: "#ebf3f7",
             }}
           >
-            Dhaka-based team building custom websites, web applications, design
-            systems, branding assets, and SEO-ready digital experiences.
+            Building websites, web apps, UI/UX systems, and SEO-ready digital
+            products for clients in Chicago, London, and across Europe.
           </div>
         </div>
 

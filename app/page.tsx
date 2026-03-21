@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import dynamic from "next/dynamic";
-
 import HeroSection from "@/component/Home/HeroSection";
-import { Suspense } from "react";
+import AboutSection from "@/component/Home/AboutSection";
+import TeamSection from "@/component/Home/TeamSection";
+import ServicesSection from "@/component/Home/ServicesSection";
+import RecentWork from "@/component/Home/RecentWork";
+import ProjectForm from "@/component/Home/ContactUs";
 import {
   getHomeStructuredData,
   homeDescription,
@@ -10,14 +12,6 @@ import {
   keywords,
   siteName,
 } from "@/lib/seo";
-
-const TeamSection = dynamic(() => import("@/component/Home/TeamSection"));
-const ServicesSection = dynamic(
-  () => import("@/component/Home/ServicesSection")
-);
-const RecentWork = dynamic(() => import("@/component/Home/RecentWork"));
-const AboutSection = dynamic(() => import("@/component/Home/AboutSection"));
-const ProjectForm = dynamic(() => import("@/component/Home/ContactUs"));
 
 export const metadata: Metadata = {
   title: homeTitle,
@@ -31,7 +25,7 @@ export const metadata: Metadata = {
     description: homeDescription,
     url: "/",
     type: "website",
-    locale: "en_BD",
+    locale: "en_US",
     siteName,
   },
   twitter: {
@@ -52,29 +46,11 @@ export default function Home() {
       />
       <main className="  mx-auto bg-white h-full">
         <HeroSection />
-        <Suspense
-          fallback={<div className=" max-w-7xl min-h-[40dvh] bg-soft-bg"></div>}
-        >
-          <AboutSection />
-        </Suspense>
-        <Suspense
-          fallback={<div className=" max-w-7xl min-h-[30dvh] bg-soft-bg"></div>}
-        >
-          <TeamSection />
-        </Suspense>
-        <Suspense
-          fallback={<div className=" max-w-7xl min-h-[30dvh] bg-soft-bg"></div>}
-        >
-          <ServicesSection />
-        </Suspense>
-        <Suspense
-          fallback={<div className=" max-w-7xl min-h-[30dvh] bg-soft-bg"></div>}
-        >
-          <RecentWork />
-        </Suspense>
-        <Suspense>
-          <ProjectForm />
-        </Suspense>
+        <AboutSection />
+        <TeamSection />
+        <ServicesSection />
+        <RecentWork />
+        <ProjectForm />
       </main>
     </>
   );
