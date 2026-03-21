@@ -1,7 +1,6 @@
 "use client";
 
-import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
-import { X } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import Image from "next/image";
 
 interface ImageModalProps {

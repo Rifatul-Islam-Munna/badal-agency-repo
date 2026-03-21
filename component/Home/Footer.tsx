@@ -73,7 +73,7 @@ export default function Footer() {
               src={"/logo-white.png"}
               width={150}
               height={1500}
-              alt="text"
+              alt="Badal Agency logo"
             />
           </div>
 
@@ -86,13 +86,13 @@ export default function Footer() {
               About
             </Link>
             <Link
-              href="#services"
+              href="#service"
               className=" text-xl hover:text-[#a8c547] transition-colors"
             >
               Services
             </Link>
             <Link
-              href="#projects"
+              href="#work"
               className=" text-xl hover:text-[#a8c547] transition-colors"
             >
               Projects

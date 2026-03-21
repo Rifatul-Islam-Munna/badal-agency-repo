@@ -62,9 +62,11 @@ export default function ServicesSection() {
     <LazyMotion features={domAnimation}>
       <section
         id="service"
+        aria-labelledby="services-heading"
         className="bg-[#07364a] pt-10 pb-14 px-4 md:px-8 rounded-3xl max-w-7xl mt-11 mx-auto"
       >
         <m.h2
+          id="services-heading"
           className="text-lg text-white font-normal mb-6"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -150,7 +152,7 @@ export default function ServicesSection() {
                               src={tick.src}
                               width={20}
                               height={20}
-                              alt="tick"
+                              alt=""
                             />
                           </span>
                           {feature}
@@ -180,7 +182,7 @@ export default function ServicesSection() {
                                 src={tick.src}
                                 width={20}
                                 height={20}
-                                alt="tick"
+                                alt=""
                               />
                             </span>
                             {feature}

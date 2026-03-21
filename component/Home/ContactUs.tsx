@@ -79,12 +79,15 @@ const ProjectForm = () => {
   };
 
   return (
-    <section id="contact" className=" mt-13">
+    <section id="contact" aria-labelledby="contact-heading" className=" mt-13">
       <div className="border border-t-2 border-l-0 border-r-0 border-b-0 border-text-blue/20 bg-white">
         <div className="flex flex-col lg:flex-row gap-52 max-w-7xl pt-25  mx-auto w-full justify-between ">
           {/* Left Section - Heading */}
           <div className="w-full lg:w-auto mb-8 lg:mb-0">
-            <h2 className="text-[28px] font-normal leading-snug text-[#05364a] ">
+            <h2
+              id="contact-heading"
+              className="text-[28px] font-normal leading-snug text-[#05364a] "
+            >
               Have a project?
               <br />
               Share Your Project

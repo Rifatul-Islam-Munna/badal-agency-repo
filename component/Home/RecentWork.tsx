@@ -16,43 +16,68 @@ export default function RecentWork() {
   const categories = ["all", "ui ux", "website", "graphic", "logo"];
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
-  // All images (update for filtering later if you want tab filtering)
-  const images = [image1, image4, image2, image5, image3, image6, image7];
-  const gridImagesDesktop = [
+  const portfolioItems = [
     {
       src: image1.src,
+      alt: "Badal Agency website design portfolio preview",
       grid: "col-span-2 row-span-3 row-start-1 col-start-1 h-80",
     },
     {
       src: image4.src,
+      alt: "Badal Agency UI UX design showcase",
       grid: "col-span-2 row-span-3 row-start-1 col-start-5 h-80",
     },
     {
       src: image2.src,
+      alt: "Badal Agency responsive website project showcase",
       grid: "col-span-2 row-span-3 row-start-4 col-start-1 h-80",
     },
     {
       src: image5.src,
+      alt: "Badal Agency branding and digital design portfolio preview",
       grid: "col-span-2 row-span-3 row-start-4 col-start-5 h-80",
     },
-    { src: image3.src, grid: "col-span-2 row-span-6 row-start-1 col-start-3" },
+    {
+      src: image3.src,
+      alt: "Badal Agency web application design portfolio preview",
+      grid: "col-span-2 row-span-6 row-start-1 col-start-3",
+    },
+    {
+      src: image6.src,
+      alt: "Badal Agency creative graphic design project preview",
+      grid: "col-span-2 row-span-3 h-64",
+    },
+    {
+      src: image7.src,
+      alt: "Badal Agency digital product interface showcase",
+      grid: "col-span-2 row-span-3 col-start-3 h-64",
+    },
   ];
-  const gridImagesDesktop2 = [
-    { src: image6.src, grid: "col-span-2 row-span-3 h-64" },
-    { src: image7.src, grid: "col-span-2 row-span-3 col-start-3 h-64" },
-  ];
+  const gridImagesDesktop = portfolioItems.slice(0, 5);
+  const gridImagesDesktop2 = portfolioItems.slice(5);
+
   const handleImageClick = (imageUrl: string) => {
     setSelectedImage(imageUrl);
     setIsOpen(true);
   };
 
   return (
-    <section id="work" className="max-w-7xl mx-auto pt-11">
-      <h1 className="mx-auto text-center text-3xl font-normal text-text-blue py-3">
+    <section
+      id="work"
+      aria-labelledby="recent-work-heading"
+      className="max-w-7xl mx-auto pt-11"
+    >
+      <h2
+        id="recent-work-heading"
+        className="mx-auto text-center text-3xl font-normal text-text-blue py-3"
+      >
         Our Recent Work
-      </h1>
+      </h2>
       <div className="border-b-3 border-text-blue/20 flex justify-center items-center">
-        <nav className="flex space-x-8 overflow-x-auto scrollbar-hide snap-x text-text-blue snap-mandatory scroll-smooth -webkit-overflow-scrolling-touch">
+        <nav
+          aria-label="Portfolio categories"
+          className="flex space-x-8 overflow-x-auto scrollbar-hide snap-x text-text-blue snap-mandatory scroll-smooth -webkit-overflow-scrolling-touch"
+        >
           {categories.map((tab) => (
             <button
               key={tab}
@@ -80,7 +105,7 @@ export default function RecentWork() {
             >
               <Image
                 src={img.src}
-                alt="recent-work"
+                alt={img.alt}
                 width={1000}
                 height={1000}
                 loading="lazy"
@@ -98,7 +123,7 @@ export default function RecentWork() {
             >
               <Image
                 src={img.src}
-                alt="recent-work"
+                alt={img.alt}
                 width={1000}
                 height={1000}
                 loading="lazy"
@@ -110,11 +135,11 @@ export default function RecentWork() {
       </div>
       {/* Mobile: Stacked Images */}
       <div className="md:hidden w-full flex flex-col gap-5 pt-6">
-        {images.map((img, i) => (
+        {portfolioItems.map((img, i) => (
           <div key={i} className="rounded-[20px] overflow-hidden bg-soft-bg">
             <Image
               src={img.src}
-              alt="recent-work"
+              alt={img.alt}
               width={700}
               height={700}
               quality={60}

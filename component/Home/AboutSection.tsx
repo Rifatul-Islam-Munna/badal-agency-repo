@@ -7,6 +7,7 @@ const AboutSection = () => {
   return (
     <section
       id="about"
+      aria-labelledby="about-heading"
       className=" mt-11 max-w-7xl mx-auto rounded-[20px] bg-soft-bg/19 p-6 sm:p-10 md:min-h-[675px] "
     >
       <div className="flex h-full items-center px-2">
@@ -17,8 +18,11 @@ const AboutSection = () => {
               About Us
             </p>
 
-            <h2 className="text-2xl font-normal leading-snug text-text-blue sm:text-3xl lg:text-[32px]">
-              We're A Small Creative Agency Helping Brands Grow Through
+            <h2
+              id="about-heading"
+              className="text-2xl font-normal leading-snug text-text-blue sm:text-3xl lg:text-[32px]"
+            >
+              We are A Small Creative Agency Helping Brands Grow Through
               Strategy, Design, And Innovation.
             </h2>
 

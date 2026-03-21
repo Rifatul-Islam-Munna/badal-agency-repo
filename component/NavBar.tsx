@@ -11,7 +11,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { RainbowButton } from "@/components/ui/rainbow-button";
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,7 +31,7 @@ const NavBar = () => {
             width={200}
             height={60}
             className="w-full h-auto object-contain"
-            alt="Agency Logo"
+            alt="Badal Agency logo"
             priority
           />
         </div>
@@ -83,11 +82,11 @@ const NavBar = () => {
                 <SheetTitle>
                   <div className="w-32 relative">
                     <Image
-                      src="/agency-logo.png"
+                      src="/logo.png"
                       width={150}
                       height={50}
                       className="w-full h-auto object-contain"
-                      alt="Agency Logo"
+                      alt="Badal Agency logo"
                     />
                   </div>
                 </SheetTitle>

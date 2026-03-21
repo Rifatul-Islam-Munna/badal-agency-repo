@@ -1,6 +1,4 @@
-import dynamic from "next/dynamic";
 import { Card, CardContent } from "@/components/ui/card";
-import React, { Suspense } from "react";
 import ThreadWrapper from "./ThreadWrapper";
 import Link from "next/link";
 
