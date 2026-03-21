@@ -1,7 +1,7 @@
 import { existsSync, statSync } from "node:fs";
 import { join } from "node:path";
 
-const FALLBACK_SITE_URL = "https://badal.agency";
+const FALLBACK_SITE_URL = "https://www.badal.agency";
 
 const keywordList = [
   "Badal Agency",
