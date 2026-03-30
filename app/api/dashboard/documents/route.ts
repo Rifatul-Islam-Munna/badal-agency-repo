@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    const documents = listDocuments()
+    const documents = await listDocuments()
     return NextResponse.json({ documents })
   } catch (error) {
     console.error("Documents list error:", error)
@@ -47,7 +47,7 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    const deleted = deleteDocument(id)
+    const deleted = await deleteDocument(id)
     if (!deleted) {
       return NextResponse.json(
         { error: "Document not found." },

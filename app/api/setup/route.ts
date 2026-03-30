@@ -40,9 +40,10 @@ function handleError(error: unknown) {
   )
 }
 
-function createResponse(request: NextRequest) {
+async function createResponse(request: NextRequest) {
   try {
-    return NextResponse.json(createEnvelope(getOrigin(request)), {
+    const envelope = await createEnvelope(getOrigin(request))
+    return NextResponse.json(envelope, {
       headers: noStoreHeaders,
     })
   } catch (error) {
@@ -50,10 +51,10 @@ function createResponse(request: NextRequest) {
   }
 }
 
-export function GET(request: NextRequest) {
+export async function GET(request: NextRequest) {
   return createResponse(request)
 }
 
-export function POST(request: NextRequest) {
+export async function POST(request: NextRequest) {
   return createResponse(request)
 }

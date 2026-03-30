@@ -3,16 +3,16 @@ export type SigningRole = "admin" | "client"
 export type SigningStatus = "pending" | "signed"
 
 export type EnvelopeRecord = {
-  id: string
+  _id: string
   admin_token: string
   client_token: string
   admin_status: SigningStatus
   client_status: SigningStatus
   admin_signed_at: string | null
   client_signed_at: string | null
-  base_pdf_path: string
-  current_pdf_path: string
-  final_pdf_path: string | null
+  base_pdf_url: string
+  current_pdf_url: string
+  final_pdf_url: string | null
   created_at: string
   updated_at: string
 }

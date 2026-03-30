@@ -1,20 +1,21 @@
 import "server-only"
 
-import { randomUUID } from "node:crypto"
-import fs from "node:fs"
-import path from "node:path"
+import { randomUUID, createHmac, timingSafeEqual } from "node:crypto"
 
-import Database from "better-sqlite3"
+import { getDatabase } from "@/lib/mongodb"
+import { uploadBuffer, deleteResource } from "@/lib/cloudinary"
 import { createEnvelope } from "@/lib/signing/server"
 
-const STORAGE_ROOT = path.join(process.cwd(), "storage", "esign")
-const DATABASE_PATH = path.join(STORAGE_ROOT, "signatures.sqlite")
-const UPLOAD_DIR = path.join(STORAGE_ROOT, "uploads")
+const SESSION_SECRET =
+  process.env.SESSION_SECRET ||
+  process.env.DASHBOARD_PASSWORD ||
+  "badal-agency-fallback-key"
 
 export type DocumentRecord = {
-  id: string
+  _id: string
   original_name: string
-  file_path: string
+  cloudinary_url: string
+  cloudinary_public_id: string
   envelope_id: string
   admin_token: string
   client_token: string
@@ -23,51 +24,7 @@ export type DocumentRecord = {
   created_at: string
 }
 
-export type SessionRecord = {
-  id: string
-  token: string
-  created_at: string
-  expires_at: string
-}
-
-let database: InstanceType<typeof Database> | null = null
-
-function getDatabase() {
-  if (database) {
-    return database
-  }
-
-  fs.mkdirSync(STORAGE_ROOT, { recursive: true })
-
-  const db = new Database(DATABASE_PATH)
-  db.pragma("journal_mode = WAL")
-
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS dashboard_documents (
-      id TEXT PRIMARY KEY,
-      original_name TEXT NOT NULL,
-      file_path TEXT NOT NULL,
-      envelope_id TEXT NOT NULL,
-      admin_token TEXT NOT NULL,
-      client_token TEXT NOT NULL,
-      admin_link TEXT NOT NULL,
-      client_link TEXT NOT NULL,
-      created_at TEXT NOT NULL
-    );
-  `)
-
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS dashboard_sessions (
-      id TEXT PRIMARY KEY,
-      token TEXT NOT NULL UNIQUE,
-      created_at TEXT NOT NULL,
-      expires_at TEXT NOT NULL
-    );
-  `)
-
-  database = db
-  return db
-}
+// ── HMAC-signed session tokens (stateless, no database needed) ───────
 
 export function validateCredentials(username: string, password: string) {
   const envUser = (process.env.DASHBOARD_USERNAME ?? "admin").trim()
@@ -76,95 +33,90 @@ export function validateCredentials(username: string, password: string) {
 }
 
 export function createSession(): string {
-  const db = getDatabase()
-  const id = randomUUID()
-  const token = randomUUID()
-  const now = new Date()
-  const expires = new Date(now.getTime() + 24 * 60 * 60 * 1000) // 24 hours
-
-  db.prepare<[string, string, string, string]>(
-    `INSERT INTO dashboard_sessions (id, token, created_at, expires_at) VALUES (?, ?, ?, ?)`
-  ).run(id, token, now.toISOString(), expires.toISOString())
-
-  return token
+  const payload = {
+    sub: "dashboard",
+    iat: Date.now(),
+    exp: Date.now() + 24 * 60 * 60 * 1000, // 24 hours
+  }
+  const payloadStr = Buffer.from(JSON.stringify(payload)).toString("base64url")
+  const signature = createHmac("sha256", SESSION_SECRET)
+    .update(payloadStr)
+    .digest("base64url")
+  return `${payloadStr}.${signature}`
 }
 
 export function validateSession(token: string | undefined | null): boolean {
   if (!token) return false
 
-  const db = getDatabase()
-  const row = db
-    .prepare<[string], SessionRecord>(
-      `SELECT * FROM dashboard_sessions WHERE token = ? LIMIT 1`
-    )
-    .get(token)
+  const parts = token.split(".")
+  if (parts.length !== 2) return false
 
-  if (!row) return false
+  const [payloadStr, signature] = parts
+  if (!payloadStr || !signature) return false
 
-  const now = new Date()
-  if (new Date(row.expires_at) < now) {
-    db.prepare<[string]>(`DELETE FROM dashboard_sessions WHERE token = ?`).run(
-      token
+  const expectedSignature = createHmac("sha256", SESSION_SECRET)
+    .update(payloadStr)
+    .digest("base64url")
+
+  try {
+    const sigBuffer = Buffer.from(signature, "base64url")
+    const expectedBuffer = Buffer.from(expectedSignature, "base64url")
+    if (sigBuffer.length !== expectedBuffer.length) return false
+    if (!timingSafeEqual(sigBuffer, expectedBuffer)) return false
+  } catch {
+    return false
+  }
+
+  try {
+    const payload = JSON.parse(
+      Buffer.from(payloadStr, "base64url").toString("utf-8"),
     )
+    if (typeof payload.exp !== "number") return false
+    if (Date.now() > payload.exp) return false
+  } catch {
     return false
   }
 
   return true
 }
 
-export function deleteSession(token: string) {
-  const db = getDatabase()
-  db.prepare<[string]>(`DELETE FROM dashboard_sessions WHERE token = ?`).run(
-    token
-  )
+export function deleteSession(_token: string) {
+  // Stateless tokens — logout is handled by clearing the cookie client-side
 }
+
+// ── Document management (MongoDB + Cloudinary) ──────────────────────
 
 export async function uploadDocument(
   fileBuffer: Buffer,
   originalName: string,
-  origin: string
+  origin: string,
 ) {
-  fs.mkdirSync(UPLOAD_DIR, { recursive: true })
-
   const id = randomUUID()
-  const ext = path.extname(originalName) || ".pdf"
-  const safeFileName = `${id}${ext}`
-  const filePath = path.join(UPLOAD_DIR, safeFileName)
+  const publicId = `doc-${id}`
+  const cloudinaryPublicId = `badal-agency/pdfs/${publicId}`
 
-  // Save uploaded file
-  fs.writeFileSync(filePath, fileBuffer)
+  // Upload PDF to Cloudinary
+  const cloudinaryUrl = await uploadBuffer(fileBuffer, publicId)
 
-  // Also copy to public/uploads so signing system can use it
-  const publicUploadDir = path.join(process.cwd(), "public", "uploads")
-  fs.mkdirSync(publicUploadDir, { recursive: true })
-  const publicPath = path.join(publicUploadDir, safeFileName)
-  fs.copyFileSync(filePath, publicPath)
+  // Create signing envelope (pass the Cloudinary URL as the base PDF)
+  const envelope = await createEnvelope(origin, cloudinaryUrl)
 
-  // Also set as the contract.pdf for the signing system
-  const contractPath = path.join(publicUploadDir, "contract.pdf")
-  fs.copyFileSync(filePath, contractPath)
-
-  // Create signing envelope
-  const envelope = createEnvelope(origin)
-
-  const db = getDatabase()
+  // Save metadata to MongoDB
+  const db = await getDatabase()
   const now = new Date().toISOString()
 
-  db.prepare<[string, string, string, string, string, string, string, string, string]>(
-    `INSERT INTO dashboard_documents
-      (id, original_name, file_path, envelope_id, admin_token, client_token, admin_link, client_link, created_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
-  ).run(
-    id,
-    originalName,
-    filePath,
-    envelope.envelopeId,
-    envelope.adminToken,
-    envelope.clientToken,
-    envelope.adminLink,
-    envelope.clientLink,
-    now
-  )
+  await db.collection("dashboard_documents").insertOne({
+    _id: id,
+    original_name: originalName,
+    cloudinary_url: cloudinaryUrl,
+    cloudinary_public_id: cloudinaryPublicId,
+    envelope_id: envelope.envelopeId,
+    admin_token: envelope.adminToken,
+    client_token: envelope.clientToken,
+    admin_link: envelope.adminLink,
+    client_link: envelope.clientLink,
+    created_at: now,
+  })
 
   return {
     id,
@@ -176,30 +128,40 @@ export async function uploadDocument(
   }
 }
 
-export function listDocuments(): DocumentRecord[] {
-  const db = getDatabase()
-  return db
-    .prepare<[], DocumentRecord>(
-      `SELECT * FROM dashboard_documents ORDER BY created_at DESC`
-    )
-    .all()
+export async function listDocuments() {
+  const db = await getDatabase()
+  const docs = await db
+    .collection<DocumentRecord>("dashboard_documents")
+    .find()
+    .sort({ created_at: -1 })
+    .toArray()
+
+  // Map _id → id for frontend compatibility
+  return docs.map((doc) => ({
+    id: doc._id,
+    original_name: doc.original_name,
+    envelope_id: doc.envelope_id,
+    admin_link: doc.admin_link,
+    client_link: doc.client_link,
+    created_at: doc.created_at,
+  }))
 }
 
-export function deleteDocument(id: string): boolean {
-  const db = getDatabase()
-  const doc = db
-    .prepare<[string], DocumentRecord>(
-      `SELECT * FROM dashboard_documents WHERE id = ? LIMIT 1`
-    )
-    .get(id)
+export async function deleteDocument(id: string): Promise<boolean> {
+  const db = await getDatabase()
+  const doc = await db
+    .collection<DocumentRecord>("dashboard_documents")
+    .findOne({ _id: id as any })
 
   if (!doc) return false
 
-  // Delete physical file
-  if (fs.existsSync(doc.file_path)) {
-    fs.unlinkSync(doc.file_path)
+  // Delete from Cloudinary
+  if (doc.cloudinary_public_id) {
+    await deleteResource(doc.cloudinary_public_id)
   }
 
-  db.prepare<[string]>(`DELETE FROM dashboard_documents WHERE id = ?`).run(id)
+  await db
+    .collection("dashboard_documents")
+    .deleteOne({ _id: id as any })
   return true
 }

@@ -4,8 +4,10 @@ import { randomUUID } from "node:crypto"
 import fs from "node:fs"
 import path from "node:path"
 
-import Database from "better-sqlite3"
 import { PDFDocument, StandardFonts, rgb } from "pdf-lib"
+
+import { getDatabase } from "@/lib/mongodb"
+import { uploadBuffer, downloadBuffer } from "@/lib/cloudinary"
 
 import type {
   EnvelopeRecord,
@@ -15,23 +17,11 @@ import type {
   SigningStatusResponse,
 } from "@/lib/signing/types"
 
-const STORAGE_ROOT = path.join(process.cwd(), "storage", "esign")
-const PDF_STORAGE_ROOT = path.join(STORAGE_ROOT, "pdfs")
-const DATABASE_PATH = path.join(STORAGE_ROOT, "signatures.sqlite")
-const CONTRACT_PUBLIC_URL = "/uploads/contract.pdf"
-const CONTRACT_FILE_PATH = path.join(
-  process.cwd(),
-  "public",
-  "uploads",
-  "contract.pdf",
-)
 const FALLBACK_CONTRACT_PATH = path.join(process.cwd(), "public", "sign.pdf")
 
 const SIGNATURE_MARGIN_X = 72
 const SIGNATURE_MARGIN_Y = 78
 const MAX_SIGNATURE_WIDTH = 180
-
-let database: Database | null = null
 
 type EnvelopeLookup = {
   row: EnvelopeRecord
@@ -47,71 +37,18 @@ export class EsignError extends Error {
   }
 }
 
-function getDatabase() {
-  if (database) {
-    return database
-  }
+// ── Helpers ──────────────────────────────────────────────────────────
 
-  fs.mkdirSync(STORAGE_ROOT, { recursive: true })
-
-  const db = new Database(DATABASE_PATH)
-  db.pragma("journal_mode = WAL")
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS signing_envelopes (
-      id TEXT PRIMARY KEY,
-      admin_token TEXT NOT NULL UNIQUE,
-      client_token TEXT NOT NULL UNIQUE,
-      admin_status TEXT NOT NULL DEFAULT 'pending',
-      client_status TEXT NOT NULL DEFAULT 'pending',
-      admin_signed_at TEXT,
-      client_signed_at TEXT,
-      base_pdf_path TEXT NOT NULL,
-      current_pdf_path TEXT NOT NULL,
-      final_pdf_path TEXT,
-      created_at TEXT NOT NULL,
-      updated_at TEXT NOT NULL
-    );
-  `)
-
-  database = db
-  return db
+async function getCollection() {
+  const db = await getDatabase()
+  return db.collection<EnvelopeRecord>("signing_envelopes")
 }
 
-function ensureStorage() {
-  fs.mkdirSync(PDF_STORAGE_ROOT, { recursive: true })
-  fs.mkdirSync(path.dirname(CONTRACT_FILE_PATH), { recursive: true })
-}
-
-function ensureContractFile() {
-  ensureStorage()
-
-  if (fs.existsSync(CONTRACT_FILE_PATH)) {
-    return CONTRACT_FILE_PATH
-  }
-
-  if (fs.existsSync(FALLBACK_CONTRACT_PATH)) {
-    fs.copyFileSync(FALLBACK_CONTRACT_PATH, CONTRACT_FILE_PATH)
-    return CONTRACT_FILE_PATH
-  }
-
-  throw new EsignError(
-    500,
-    `Base contract is missing. Expected ${CONTRACT_PUBLIC_URL} in the public folder.`,
-  )
-}
-
-function resolveEnvelopeByToken(token: string) {
-  const row =
-    getDatabase()
-      .prepare<[string, string], EnvelopeRecord>(
-        `
-          SELECT *
-          FROM signing_envelopes
-          WHERE admin_token = ? OR client_token = ?
-          LIMIT 1
-        `,
-      )
-      .get(token, token) ?? null
+async function resolveEnvelopeByToken(token: string): Promise<EnvelopeLookup> {
+  const col = await getCollection()
+  const row = await col.findOne({
+    $or: [{ admin_token: token }, { client_token: token }],
+  })
 
   if (!row) {
     throw new EsignError(404, "That signing link is invalid or has expired.")
@@ -120,21 +57,7 @@ function resolveEnvelopeByToken(token: string) {
   return {
     row,
     matchedRole: row.admin_token === token ? "admin" : "client",
-  } satisfies EnvelopeLookup
-}
-
-function getCurrentPdfPath(row: EnvelopeRecord) {
-  const fallbackPath = ensureContractFile()
-
-  if (row.current_pdf_path && fs.existsSync(row.current_pdf_path)) {
-    return row.current_pdf_path
   }
-
-  if (row.base_pdf_path && fs.existsSync(row.base_pdf_path)) {
-    return row.base_pdf_path
-  }
-
-  return fallbackPath
 }
 
 function buildStatusResponse(
@@ -145,14 +68,15 @@ function buildStatusResponse(
   const allSigned =
     row.admin_status === "signed" && row.client_status === "signed"
   const otherRole: SigningRole = matchedRole === "admin" ? "client" : "admin"
-  const selfStatus = matchedRole === "admin" ? row.admin_status : row.client_status
+  const selfStatus =
+    matchedRole === "admin" ? row.admin_status : row.client_status
   const otherStatus =
     matchedRole === "admin" ? row.client_status : row.admin_status
   const signedAt =
     matchedRole === "admin" ? row.admin_signed_at : row.client_signed_at
 
   return {
-    envelopeId: row.id,
+    envelopeId: row._id,
     role: matchedRole,
     selfStatus,
     otherRole,
@@ -202,29 +126,55 @@ function formatSignedAt(timestamp: string) {
   }).format(new Date(timestamp))
 }
 
-export function createEnvelope(origin: string): SetupResponse {
-  const basePdfPath = ensureContractFile()
+/**
+ * Ensure the base contract PDF exists on Cloudinary.
+ * If `basePdfUrl` is already provided (from dashboard upload), just return it.
+ * Otherwise, upload the default public/sign.pdf to Cloudinary.
+ */
+async function ensureBasePdf(basePdfUrl?: string): Promise<string> {
+  if (basePdfUrl) return basePdfUrl
+
+  // Upload the fallback PDF from public/
+  if (fs.existsSync(FALLBACK_CONTRACT_PATH)) {
+    const buffer = fs.readFileSync(FALLBACK_CONTRACT_PATH)
+    const publicId = `default-contract-${Date.now()}`
+    return uploadBuffer(buffer, publicId)
+  }
+
+  throw new EsignError(
+    500,
+    "Base contract is missing. Please upload a PDF from the dashboard.",
+  )
+}
+
+// ── Public API ───────────────────────────────────────────────────────
+
+export async function createEnvelope(
+  origin: string,
+  basePdfUrl?: string,
+): Promise<SetupResponse> {
+  const pdfUrl = await ensureBasePdf(basePdfUrl)
+
   const id = randomUUID()
   const adminToken = randomUUID()
   const clientToken = randomUUID()
   const now = new Date().toISOString()
 
-  getDatabase()
-    .prepare<[string, string, string, string, string, string, string]>(
-      `
-        INSERT INTO signing_envelopes (
-          id,
-          admin_token,
-          client_token,
-          base_pdf_path,
-          current_pdf_path,
-          created_at,
-          updated_at
-        )
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-      `,
-    )
-    .run(id, adminToken, clientToken, basePdfPath, basePdfPath, now, now)
+  const col = await getCollection()
+  await col.insertOne({
+    _id: id,
+    admin_token: adminToken,
+    client_token: clientToken,
+    admin_status: "pending",
+    client_status: "pending",
+    admin_signed_at: null,
+    client_signed_at: null,
+    base_pdf_url: pdfUrl,
+    current_pdf_url: pdfUrl,
+    final_pdf_url: null,
+    created_at: now,
+    updated_at: now,
+  })
 
   return {
     envelopeId: id,
@@ -235,11 +185,11 @@ export function createEnvelope(origin: string): SetupResponse {
   }
 }
 
-export function getEnvelopeStatus(
+export async function getEnvelopeStatus(
   token: string,
   expectedRole?: SigningRole,
-): SigningStatusResponse {
-  const { row, matchedRole } = resolveEnvelopeByToken(token)
+): Promise<SigningStatusResponse> {
+  const { row, matchedRole } = await resolveEnvelopeByToken(token)
   assertRoleMatch(expectedRole, matchedRole)
   return buildStatusResponse(row, token, matchedRole)
 }
@@ -249,20 +199,20 @@ export async function signEnvelope(
   expectedRole: SigningRole,
   signatureDataUrl: string,
 ) {
-  const { row, matchedRole } = resolveEnvelopeByToken(token)
+  const { row, matchedRole } = await resolveEnvelopeByToken(token)
   assertRoleMatch(expectedRole, matchedRole)
 
-  const selfStatus = matchedRole === "admin" ? row.admin_status : row.client_status
+  const selfStatus =
+    matchedRole === "admin" ? row.admin_status : row.client_status
   if (selfStatus === "signed") {
     throw new EsignError(409, "This link has already been signed.")
   }
 
   const signatureBytes = parseSignatureDataUrl(signatureDataUrl)
-  const sourcePdfPath = getCurrentPdfPath(row)
-  const targetPdfPath = path.join(PDF_STORAGE_ROOT, `${row.id}-current.pdf`)
   const signedAt = new Date().toISOString()
 
-  const sourcePdfBytes = fs.readFileSync(sourcePdfPath)
+  // Download the current PDF from Cloudinary
+  const sourcePdfBytes = await downloadBuffer(row.current_pdf_url)
   const pdfDoc = await PDFDocument.load(sourcePdfBytes)
   const pngSignature = await pdfDoc.embedPng(signatureBytes)
   const labelFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
@@ -320,8 +270,10 @@ export async function signEnvelope(
     color: rgb(0.36, 0.43, 0.51),
   })
 
+  // Save signed PDF and upload to Cloudinary
   const signedPdfBytes = await pdfDoc.save()
-  fs.writeFileSync(targetPdfPath, Buffer.from(signedPdfBytes))
+  const newPublicId = `${row._id}-signed-${matchedRole}-${Date.now()}`
+  const newPdfUrl = await uploadBuffer(Buffer.from(signedPdfBytes), newPublicId)
 
   const nextAdminStatus: SigningStatus =
     matchedRole === "admin" ? "signed" : row.admin_status
@@ -335,42 +287,21 @@ export async function signEnvelope(
     nextAdminStatus === "signed" && nextClientStatus === "signed"
   const updatedAt = new Date().toISOString()
 
-  getDatabase()
-    .prepare<
-      [
-        SigningStatus,
-        SigningStatus,
-        string | null,
-        string | null,
-        string,
-        string | null,
-        string,
-        string,
-      ]
-    >(
-      `
-        UPDATE signing_envelopes
-        SET
-          admin_status = ?,
-          client_status = ?,
-          admin_signed_at = ?,
-          client_signed_at = ?,
-          current_pdf_path = ?,
-          final_pdf_path = ?,
-          updated_at = ?
-        WHERE id = ?
-      `,
-    )
-    .run(
-      nextAdminStatus,
-      nextClientStatus,
-      nextAdminSignedAt,
-      nextClientSignedAt,
-      targetPdfPath,
-      allSigned ? targetPdfPath : null,
-      updatedAt,
-      row.id,
-    )
+  const col = await getCollection()
+  await col.updateOne(
+    { _id: row._id },
+    {
+      $set: {
+        admin_status: nextAdminStatus,
+        client_status: nextClientStatus,
+        admin_signed_at: nextAdminSignedAt,
+        client_signed_at: nextClientSignedAt,
+        current_pdf_url: newPdfUrl,
+        final_pdf_url: allSigned ? newPdfUrl : null,
+        updated_at: updatedAt,
+      },
+    },
+  )
 
   const updatedRow: EnvelopeRecord = {
     ...row,
@@ -378,26 +309,27 @@ export async function signEnvelope(
     client_status: nextClientStatus,
     admin_signed_at: nextAdminSignedAt,
     client_signed_at: nextClientSignedAt,
-    current_pdf_path: targetPdfPath,
-    final_pdf_path: allSigned ? targetPdfPath : null,
+    current_pdf_url: newPdfUrl,
+    final_pdf_url: allSigned ? newPdfUrl : null,
     updated_at: updatedAt,
   }
 
   return buildStatusResponse(updatedRow, token, matchedRole)
 }
 
-export function getDocumentPreview(token: string) {
-  const { row } = resolveEnvelopeByToken(token)
-  const filePath = getCurrentPdfPath(row)
+export async function getDocumentPreview(token: string) {
+  const { row } = await resolveEnvelopeByToken(token)
+
+  const buffer = await downloadBuffer(row.current_pdf_url)
 
   return {
-    fileName: `${row.id}-preview.pdf`,
-    buffer: fs.readFileSync(filePath),
+    fileName: `${row._id}-preview.pdf`,
+    buffer,
   }
 }
 
-export function getDownloadDocument(token: string) {
-  const { row } = resolveEnvelopeByToken(token)
+export async function getDownloadDocument(token: string) {
+  const { row } = await resolveEnvelopeByToken(token)
 
   if (row.admin_status !== "signed" || row.client_status !== "signed") {
     throw new EsignError(
@@ -406,13 +338,11 @@ export function getDownloadDocument(token: string) {
     )
   }
 
-  const filePath =
-    row.final_pdf_path && fs.existsSync(row.final_pdf_path)
-      ? row.final_pdf_path
-      : getCurrentPdfPath(row)
+  const url = row.final_pdf_url || row.current_pdf_url
+  const buffer = await downloadBuffer(url)
 
   return {
-    fileName: `signed-contract-${row.id}.pdf`,
-    buffer: fs.readFileSync(filePath),
+    fileName: `signed-contract-${row._id}.pdf`,
+    buffer,
   }
 }

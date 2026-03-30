@@ -30,7 +30,7 @@ function handleError(error: unknown) {
   )
 }
 
-export function GET(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     const token = request.nextUrl.searchParams.get("token")
 
@@ -38,9 +38,9 @@ export function GET(request: NextRequest) {
       throw new EsignError(400, "A token query parameter is required.")
     }
 
-    const { buffer, fileName } = getDownloadDocument(token)
+    const { buffer, fileName } = await getDownloadDocument(token)
 
-    return new NextResponse(buffer, {
+    return new NextResponse(new Uint8Array(buffer), {
       headers: {
         ...noStoreHeaders,
         "Content-Type": "application/pdf",

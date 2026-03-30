@@ -57,11 +57,11 @@ function handleError(error: unknown) {
   )
 }
 
-export function GET(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     const token = getToken(request)
     const role = parseRole(request.nextUrl.searchParams.get("role"))
-    const status = getEnvelopeStatus(token, role)
+    const status = await getEnvelopeStatus(token, role)
 
     return NextResponse.json(status, {
       headers: noStoreHeaders,
