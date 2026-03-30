@@ -164,6 +164,6 @@
 }
 body,
 html {
-  font-family: var(--font-kanit);
+  font-family: var(--font-kanit, system-ui), sans-serif;
   scroll-behavior: smooth;
 }

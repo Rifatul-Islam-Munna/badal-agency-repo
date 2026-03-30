@@ -1,0 +1,54 @@
+import { NextRequest, NextResponse } from "next/server"
+
+import { EsignError, getDownloadDocument } from "@/lib/signing/server"
+
+export const runtime = "nodejs"
+export const dynamic = "force-dynamic"
+
+const noStoreHeaders = {
+  "Cache-Control": "no-store",
+}
+
+function handleError(error: unknown) {
+  if (error instanceof EsignError) {
+    return NextResponse.json(
+      { error: error.message },
+      {
+        status: error.status,
+        headers: noStoreHeaders,
+      },
+    )
+  }
+
+  console.error("Download route error", error)
+  return NextResponse.json(
+    { error: "Unable to download the signed PDF." },
+    {
+      status: 500,
+      headers: noStoreHeaders,
+    },
+  )
+}
+
+export function GET(request: NextRequest) {
+  try {
+    const token = request.nextUrl.searchParams.get("token")
+
+    if (!token) {
+      throw new EsignError(400, "A token query parameter is required.")
+    }
+
+    const { buffer, fileName } = getDownloadDocument(token)
+
+    return new NextResponse(buffer, {
+      headers: {
+        ...noStoreHeaders,
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `attachment; filename="${fileName}"`,
+        "Content-Length": buffer.length.toString(),
+      },
+    })
+  } catch (error) {
+    return handleError(error)
+  }
+}

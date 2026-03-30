@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import { Kanit } from "next/font/google";
 import "./globals.css";
-import NavBar from "@/component/NavBar";
-import Footer from "@/component/Home/Footer";
 import { Toaster } from "sonner";
 import { Suspense } from "react";
 import {
@@ -12,13 +9,6 @@ import {
   keywords,
   siteName,
 } from "@/lib/seo";
-
-export const kanit = Kanit({
-  variable: "--font-kanit",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"], // optional
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseUrl()),
@@ -68,20 +58,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Suspense>
-        <Toaster />
-      </Suspense>
-      <body className={` ${kanit.variable}  antialiased bg-white`}>
+      <body className="antialiased bg-white">
+        <Suspense>
+          <Toaster />
+        </Suspense>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(getSiteStructuredData()),
           }}
         />
-        <NavBar />
         {children}
-        <Footer />
       </body>
     </html>
   );
 }
+

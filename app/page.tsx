@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import NavBar from "@/component/NavBar";
+import Footer from "@/component/Home/Footer";
 import HeroSection from "@/component/Home/HeroSection";
 import AboutSection from "@/component/Home/AboutSection";
 import TeamSection from "@/component/Home/TeamSection";
@@ -44,6 +46,7 @@ export default function Home() {
           __html: JSON.stringify(getHomeStructuredData()),
         }}
       />
+      <NavBar />
       <main className="  mx-auto bg-white h-full">
         <HeroSection />
         <AboutSection />
@@ -52,6 +55,7 @@ export default function Home() {
         <RecentWork />
         <ProjectForm />
       </main>
+      <Footer />
     </>
   );
 }
