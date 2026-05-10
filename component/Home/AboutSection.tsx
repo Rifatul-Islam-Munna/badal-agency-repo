@@ -1,72 +1,90 @@
-import { Card } from "@/components/ui/card";
-
 import { NumberTicker } from "@/components/ui/number-ticker";
 import React, { Suspense } from "react";
+
+const stats = [
+  {
+    label: "Project Complete",
+    value: 351,
+  },
+  {
+    label: "Satisfied Clients",
+    value: 325,
+  },
+];
+
+function StatCard({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="flex h-[185px] w-[185px] flex-col rounded-[18px] border border-[#e6e3dc] bg-white px-[43px] pt-[46px] pb-[34px] shadow-[0_0_0_1px_rgba(5,54,74,0.01),0_4px_12px_rgba(5,54,74,0.03)] sm:h-[205px] sm:w-[205px] sm:px-[46px] sm:pt-[50px] sm:pb-[38px] lg:h-[186px] lg:w-[186px] lg:px-[43px] lg:pt-[46px] lg:pb-[34px]">
+      <p className="text-[14px] font-normal leading-none text-text-blue">
+        {label}
+      </p>
+      <div className="mt-auto flex items-end gap-[6px] text-text-blue">
+        <Suspense
+          fallback={
+            <span className="text-[42px] leading-none font-medium tracking-[-0.04em] text-text-blue sm:text-[52px] lg:text-[41px]">
+              {value}
+            </span>
+          }
+        >
+          <NumberTicker
+            value={value}
+            className="text-[42px] leading-none font-medium tracking-[-0.04em] text-text-blue sm:text-[52px] lg:text-[41px]"
+          />
+        </Suspense>
+        <span className="pb-[2px] text-[42px] leading-none font-medium sm:text-[52px] lg:text-[41px]">
+          +
+        </span>
+      </div>
+    </div>
+  );
+}
 
 const AboutSection = () => {
   return (
     <section
       id="about"
       aria-labelledby="about-heading"
-      className=" mt-11 max-w-7xl mx-auto rounded-[20px] bg-soft-bg/19 p-6 sm:p-10 md:min-h-[675px] "
+      className="mx-auto mt-11 max-w-7xl rounded-[24px] bg-[#f7f7f5] px-7 py-9 sm:px-10 sm:py-11 lg:px-7 lg:py-8"
     >
-      <div className="flex h-full items-center px-2">
-        <div className="grid w-full grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-12">
-          {/* Left Side - Text Content */}
-          <div className="space-y-6 text-center h-full flex flex-col justify-between  lg:text-left">
-            <p className="text-base font-normal text-text-blue md:text-lg">
-              About Us
-            </p>
+      <div className="mx-auto lg:relative lg:min-h-[414px] lg:max-w-[795px]">
+        <p className="mb-10 text-[16px] font-normal leading-none text-text-blue sm:mb-12 lg:mb-0 lg:pt-[3px]">
+          About Us
+        </p>
 
-            <h2
-              id="about-heading"
-              className="text-2xl font-normal leading-snug text-text-blue sm:text-3xl lg:text-[32px]"
-            >
-              We are A Small Creative Agency Helping Brands Grow Through
-              Strategy, Design, And Innovation.
-            </h2>
+        <div className="space-y-8 lg:space-y-0">
+          <h2
+            id="about-heading"
+            className="max-w-[515px] text-[30px] leading-[1.46] font-normal tracking-[-0.03em] text-text-blue sm:text-[34px] lg:mt-[61px] lg:max-w-[353px] lg:text-[21px] lg:leading-[1.52]"
+          >
+            We&apos;re A Small Creative Agency Helping
+            <br className="hidden lg:block" />
+            <span className="lg:hidden"> </span>
+            Brands Grow Through Strategy, Design,
+            <br className="hidden lg:block" />
+            <span className="lg:hidden"> </span>
+            And Innovation.
+          </h2>
 
-            <p className="text-xl font-normal text-text-blue/90 sm:text-2xl lg:text-3xl">
-              We Provide UI/UX design, build websites, Graphic design,
-              Development and more...
-            </p>
-          </div>
+          <p className="max-w-[690px] text-[26px] leading-[1.58] font-normal tracking-[-0.03em] text-text-blue sm:text-[30px] lg:mt-[53px] lg:max-w-[521px] lg:text-[20px] lg:leading-[1.6]">
+            We Provide UI/UX design, build websites,
+            <br className="hidden lg:block" />
+            <span className="lg:hidden"> </span>
+            We design and build scalable SaaS platforms, mobile apps,
+            <br className="hidden lg:block" />
+            <span className="lg:hidden"> </span>
+            and custom software that solve real business problems
+            <br className="hidden lg:block" />
+            <span className="lg:hidden"> </span>
+            from product strategy and UX to development and launch.
+          </p>
+        </div>
 
-          {/* Right Side - 2x2 Grid with Cards */}
-          {/* We use max-w-md to prevent it from getting huge on tablets, centered on mobile */}
-          <div className="mx-auto grid w-full max-w-[350px] grid-cols-2 gap-4 sm:max-w-md sm:gap-6 lg:mx-0 lg:ml-auto">
-            {/* Row 1, Col 1 - Project Complete Card */}
-            <Card className="flex aspect-square flex-col items-center justify-center rounded-[20px] bg-white p-4 shadow-none">
-              <p className="mb-2 text-center text-sm font-medium text-text-blue sm:mb-4 sm:text-base md:text-lg">
-                Project Complete
-              </p>
-              <Suspense fallback={null}>
-                <NumberTicker
-                  value={351}
-                  className="whitespace-nowrap text-3xl font-normal text-text-blue sm:text-5xl lg:text-7xl"
-                />
-              </Suspense>
-            </Card>
+        <div className="pt-1 lg:absolute lg:top-[0px] lg:right-[214px] lg:pt-0">
+          <StatCard {...stats[0]} />
+        </div>
 
-            {/* Row 1, Col 2 - Empty Spacer */}
-            <div className="aspect-square"></div>
-
-            {/* Row 2, Col 1 - Empty Spacer */}
-            <div className="aspect-square"></div>
-
-            {/* Row 2, Col 2 - Satisfied Clients Card */}
-            <Card className="flex aspect-square flex-col items-center justify-center rounded-[20px] bg-white p-4 shadow-none">
-              <p className="mb-2 text-center text-sm font-medium text-text-blue sm:mb-4 sm:text-base md:text-lg">
-                Satisfied Clients
-              </p>
-              <Suspense fallback={null}>
-                <NumberTicker
-                  value={325}
-                  className="whitespace-nowrap text-3xl font-normal text-text-blue sm:text-5xl lg:text-7xl"
-                />
-              </Suspense>
-            </Card>
-          </div>
+        <div className="pt-1 lg:absolute lg:top-[207px] lg:right-[31px] lg:pt-0">
+          <StatCard {...stats[1]} />
         </div>
       </div>
     </section>
