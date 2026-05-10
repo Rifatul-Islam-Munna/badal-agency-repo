@@ -14,8 +14,8 @@ const stats = [
 
 function StatCard({ label, value }: { label: string; value: number }) {
   return (
-    <div className="flex h-[185px] w-[185px] flex-col rounded-[18px] border border-[#e6e3dc] bg-white px-[43px] pt-[46px] pb-[34px] shadow-[0_0_0_1px_rgba(5,54,74,0.01),0_4px_12px_rgba(5,54,74,0.03)] sm:h-[205px] sm:w-[205px] sm:px-[46px] sm:pt-[50px] sm:pb-[38px] lg:h-[186px] lg:w-[186px] lg:px-[43px] lg:pt-[46px] lg:pb-[34px]">
-      <p className="text-[14px] font-normal leading-none text-text-blue">
+    <div className="flex h-[185px] w-[185px] flex-col rounded-[18px] border border-[#e6e3dc] bg-white px-[43px] pt-[46px] pb-[34px] shadow-[0_0_0_1px_rgba(5,54,74,0.01),0_4px_12px_rgba(5,54,74,0.03)] sm:h-[205px] sm:w-[205px] sm:px-[46px] sm:pt-[50px] sm:pb-[38px] lg:h-[186px] lg:w-[214px] lg:px-[43px] lg:pt-[46px] lg:pb-[34px]">
+      <p className="whitespace-nowrap text-[14px] font-normal leading-none text-text-blue">
         {label}
       </p>
       <div className="mt-auto flex items-end gap-[6px] text-text-blue">
@@ -44,9 +44,9 @@ const AboutSection = () => {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="mx-auto mt-11 max-w-7xl rounded-[24px] bg-[#f7f7f5] px-7 py-9 sm:px-10 sm:py-11 lg:px-7 lg:py-8"
+      className="mx-auto mt-11 max-w-7xl rounded-[24px] bg-[#f7f7f5] px-7 py-9 sm:px-10 sm:py-11 lg:px-16 lg:py-8"
     >
-      <div className="mx-auto lg:relative lg:min-h-[414px] lg:max-w-[795px]">
+      <div className="lg:relative lg:min-h-[414px]">
         <p className="mb-10 text-[16px] font-normal leading-none text-text-blue sm:mb-12 lg:mb-0 lg:pt-[3px]">
           About Us
         </p>
