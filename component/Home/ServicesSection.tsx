@@ -6,9 +6,20 @@ import image1 from "@/app/assets/service/s-image1.png";
 import image2 from "@/app/assets/service/s-image2.png";
 import image3 from "@/app/assets/service/s-image3.png";
 import image4 from "@/app/assets/service/s-image4.png";
+import image5 from "@/app/assets/service/sofw.png";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 const services = [
+  {
+    title: "Software Products & App Development",
+    subtitle: "We design and build scalable SaaS platforms",
+    features: [
+      "Build scalable SaaS platforms",
+      "Mobile appsw",
+      "Custom software that solve real business problems",
+    ],
+    image: image5.src,
+  },
   {
     title: "UI UX Design",
     subtitle: "Creating user-friendly UI/UX designs",
