@@ -79,8 +79,14 @@ const AboutSection = () => {
           </p>
         </div>
 
-        <div className="flex flex-row gap-4 pt-1 lg:absolute lg:top-[0px] lg:right-[214px] lg:pt-0 lg:gap-0">
+        <div className="flex flex-row gap-4 pt-1 lg:hidden">
           <StatCard {...stats[0]} />
+          <StatCard {...stats[1]} />
+        </div>
+        <div className="hidden lg:block lg:absolute lg:top-[0px] lg:right-[214px] lg:pt-0">
+          <StatCard {...stats[0]} />
+        </div>
+        <div className="hidden lg:block lg:absolute lg:top-[207px] lg:right-[31px] lg:pt-0">
           <StatCard {...stats[1]} />
         </div>
       </div>

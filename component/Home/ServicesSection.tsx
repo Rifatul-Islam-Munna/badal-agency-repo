@@ -113,7 +113,7 @@ export default function ServicesSection() {
                 {/* Text Side */}
                 <div className="flex-1 py-8 pr-4">
                   <m.h3
-                    className="text-[32px] text-text-blue font-normal mb-1"
+                    className="text-[32px] text-text-blue font-normal mb-1 truncate"
                     initial={{ opacity: 0, x: -15 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{
