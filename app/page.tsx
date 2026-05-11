@@ -47,7 +47,7 @@ export default function Home() {
         }}
       />
       <NavBar />
-      <main className="  mx-auto bg-white h-full">
+      <main className="  mx-auto bg-white h-full ">
         <HeroSection />
         <AboutSection />
         <TeamSection />
