@@ -5,6 +5,7 @@ import HeroSection from "@/component/Home/HeroSection";
 import AboutSection from "@/component/Home/AboutSection";
 import TeamSection from "@/component/Home/TeamSection";
 import ServicesSection from "@/component/Home/ServicesSection";
+import OurProductSection from "@/component/Home/OurProductSection";
 import RecentWork from "@/component/Home/RecentWork";
 import ProjectForm from "@/component/Home/ContactUs";
 import {
@@ -52,6 +53,7 @@ export default function Home() {
         <AboutSection />
         <TeamSection />
         <ServicesSection />
+        <OurProductSection />
         <RecentWork />
         <ProjectForm />
       </main>
