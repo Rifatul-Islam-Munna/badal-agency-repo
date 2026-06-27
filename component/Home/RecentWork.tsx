@@ -9,10 +9,10 @@ export default function RecentWork() {
   const [selectedImage, setSelectedImage] = useState("");
 
   const longImages = [
-    "/longimage/Group 39532.png",
-    "/longimage/Rectangle 8830.png",
-    "/longimage/Rectangle 8832.png",
-    "/longimage/Rectangle 8834.png",
+    { src: "/longimage/Group 39532.png", width: 3953, height: 1129 },
+    { src: "/longimage/Rectangle 8830.png", width: 974, height: 1128 },
+    { src: "/longimage/Rectangle 8832.png", width: 1968, height: 1128 },
+    { src: "/longimage/Rectangle 8834.png", width: 974, height: 1128 },
   ];
 
   const shortImagesRowOne = [
@@ -24,7 +24,7 @@ export default function RecentWork() {
     "/shortimage/Rectangle 8873.png",
     "/shortimage/Rectangle 8874.png",
     "/shortimage/Rectangle 8875.png",
-  ];
+  ].map((src) => ({ src, width: 976, height: 794 }));
 
   const shortImagesRowTwo = [
     "/shortimage/Rectangle 8876.png",
@@ -35,6 +35,28 @@ export default function RecentWork() {
     "/shortimage/Rectangle 8881.png",
     "/shortimage/Rectangle 8882.png",
     "/shortimage/Rectangle 8883.png",
+  ].map((src) => ({ src, width: 976, height: 794 }));
+
+  const rows = [
+    {
+      images: longImages,
+      className: "[--duration:32s] [--gap:0.85rem]",
+      itemClass: "h-28 md:h-40 lg:h-44",
+      sizes: "(min-width: 1024px) 620px, (min-width: 768px) 560px, 390px",
+    },
+    {
+      images: shortImagesRowOne,
+      className: "[--duration:42s] [--gap:0.85rem]",
+      itemClass: "h-36 md:h-52 lg:h-56",
+      sizes: "(min-width: 1024px) 275px, (min-width: 768px) 255px, 180px",
+      reverse: true,
+    },
+    {
+      images: shortImagesRowTwo,
+      className: "[--duration:42s] [--gap:0.85rem]",
+      itemClass: "h-36 md:h-52 lg:h-56",
+      sizes: "(min-width: 1024px) 275px, (min-width: 768px) 255px, 180px",
+    },
   ];
 
   const handleImageClick = (imageUrl: string) => {
@@ -43,23 +65,24 @@ export default function RecentWork() {
   };
 
   const renderImage = (
-    src: string,
+    image: { src: string; width: number; height: number },
     sizeClass: string,
     sizes: string
   ) => (
     <button
-      key={src}
+      key={image.src}
       type="button"
-      onClick={() => handleImageClick(src)}
-      className={`relative shrink-0 overflow-hidden rounded-[20px] bg-soft-bg ${sizeClass}`}
+      onClick={() => handleImageClick(image.src)}
+      className={`relative shrink-0 overflow-hidden rounded-[14px] bg-white shadow-sm ring-1 ring-black/5 ${sizeClass}`}
+      style={{ aspectRatio: `${image.width} / ${image.height}` }}
       aria-label="Open recent work image"
     >
       <Image
-        src={src}
+        src={image.src}
         alt="Badal Agency recent work preview"
         fill
         loading="lazy"
-        className="object-cover"
+        className="object-contain"
         sizes={sizes}
       />
     </button>
@@ -78,34 +101,19 @@ export default function RecentWork() {
         Our Recent Work
       </h2>
 
-      <div className="pt-8 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-        <Marquee className="[--duration:34s] [--gap:1rem]" pauseOnHover>
-          {longImages.map((src) =>
-            renderImage(
-              src,
-              "h-48 w-[320px] md:h-72 md:w-[560px]",
-              "(min-width: 768px) 560px, 320px"
-            )
-          )}
-        </Marquee>
-        <Marquee className="[--duration:42s] [--gap:1rem]" reverse pauseOnHover>
-          {shortImagesRowOne.map((src) =>
-            renderImage(
-              src,
-              "h-72 w-[220px] md:h-[420px] md:w-[320px]",
-              "(min-width: 768px) 320px, 220px"
-            )
-          )}
-        </Marquee>
-        <Marquee className="[--duration:42s] [--gap:1rem]" pauseOnHover>
-          {shortImagesRowTwo.map((src) =>
-            renderImage(
-              src,
-              "h-72 w-[220px] md:h-[420px] md:w-[320px]",
-              "(min-width: 768px) 320px, 220px"
-            )
-          )}
-        </Marquee>
+      <div className="space-y-2 pt-8 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)] md:space-y-3">
+        {rows.map((row, index) => (
+          <Marquee
+            key={index}
+            className={row.className}
+            reverse={row.reverse}
+            pauseOnHover
+          >
+            {row.images.map((image) =>
+              renderImage(image, row.itemClass, row.sizes)
+            )}
+          </Marquee>
+        ))}
       </div>
       <ImageModal
         imageUrl={selectedImage}

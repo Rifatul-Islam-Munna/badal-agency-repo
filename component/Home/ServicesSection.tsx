@@ -61,7 +61,7 @@ export default function ServicesSection() {
   const [openCards, setOpenCards] = useState<Record<string, boolean>>(
     () =>
       services.reduce<Record<string, boolean>>((acc, service) => {
-        acc[service.title] = true;
+        acc[service.title] = false;
         return acc;
       }, {})
   );
