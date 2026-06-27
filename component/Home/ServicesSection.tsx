@@ -82,7 +82,7 @@ export default function ServicesSection() {
         >
           Services
         </m.h2>
-        <div className="flex h-full flex-col gap-6">
+        <div className="flex h-full flex-col gap-3 md:gap-4">
           {services.map((service, idx) => {
             const hasMoreThanThree = service.features.length > 3;
             const midPoint = Math.ceil(service.features.length / 2);
@@ -97,14 +97,14 @@ export default function ServicesSection() {
             return (
               <m.div
                 key={service.title}
-                className="bg-white px-6 py-7 text-text-blue sm:px-8 lg:px-10"
-                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                className="bg-white px-5 py-5 text-text-blue sm:px-7 sm:py-6 lg:px-9"
+                initial={{ opacity: 0, y: 28, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -20, scale: 0.95 }}
+                exit={{ opacity: 0, y: -20, scale: 0.98 }}
                 transition={{
-                  duration: 0.5,
-                  delay: idx * 0.1,
-                  ease: [0.25, 0.46, 0.45, 0.94],
+                  duration: 0.8,
+                  delay: idx * 0.16,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
               >
                 <button
@@ -124,9 +124,9 @@ export default function ServicesSection() {
                     initial={{ opacity: 0, x: -15 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{
-                      duration: 0.4,
-                      delay: idx * 0.1 + 0.2,
-                      ease: "easeOut",
+                      duration: 0.65,
+                      delay: idx * 0.16 + 0.18,
+                      ease: [0.16, 1, 0.3, 1],
                     }}
                   >
                     {service.title}
@@ -147,15 +147,24 @@ export default function ServicesSection() {
                 </button>
 
                 {isOpen && (
-                  <div id={`service-card-${idx}`} className="pt-2">
+                  <m.div
+                    id={`service-card-${idx}`}
+                    className="overflow-hidden pt-2"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    transition={{
+                      duration: 0.55,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
                     <m.p
                       className="mb-5 text-lg font-light text-text-blue sm:text-[20px]"
-                      initial={{ opacity: 0, x: -15 }}
-                      animate={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{
-                        duration: 0.4,
-                        delay: idx * 0.1 + 0.3,
-                        ease: "easeOut",
+                        duration: 0.55,
+                        delay: 0.12,
+                        ease: [0.16, 1, 0.3, 1],
                       }}
                     >
                       {service.subtitle}
@@ -172,12 +181,12 @@ export default function ServicesSection() {
                           <m.li
                             key={feature}
                             className="flex items-center text-base font-light text-text-blue sm:text-lg"
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
                             transition={{
-                              duration: 0.3,
-                              delay: idx * 0.1 + 0.4 + featureIdx * 0.05,
-                              ease: "easeOut",
+                              duration: 0.5,
+                              delay: 0.22 + featureIdx * 0.1,
+                              ease: [0.16, 1, 0.3, 1],
                             }}
                           >
                             <span className="inline-block text-[#98c73d] mr-2 flex-shrink-0">
@@ -198,15 +207,14 @@ export default function ServicesSection() {
                             <m.li
                               key={feature}
                               className="flex items-center text-base font-light text-text-blue sm:text-lg"
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
+                              initial={{ opacity: 0, y: 8 }}
+                              animate={{ opacity: 1, y: 0 }}
                               transition={{
-                                duration: 0.3,
+                                duration: 0.5,
                                 delay:
-                                  idx * 0.1 +
-                                  0.4 +
-                                  (leftFeatures.length + featureIdx) * 0.05,
-                                ease: "easeOut",
+                                  0.22 +
+                                  (leftFeatures.length + featureIdx) * 0.1,
+                                ease: [0.16, 1, 0.3, 1],
                               }}
                             >
                               <span className="inline-block text-[#98c73d] mr-2 flex-shrink-0">
@@ -223,7 +231,7 @@ export default function ServicesSection() {
                         </ul>
                       )}
                     </div>
-                  </div>
+                  </m.div>
                 )}
               </m.div>
             );
