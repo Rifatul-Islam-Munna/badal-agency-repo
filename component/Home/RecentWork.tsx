@@ -1,71 +1,75 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import image1 from "@/app/assets/RecentWork/all-banner-1.png";
-import image2 from "@/app/assets/RecentWork/all-banner-2.png";
-import image3 from "@/app/assets/RecentWork/all-banner-3.png";
-import image4 from "@/app/assets/RecentWork/all-banner-4.png";
-import image5 from "@/app/assets/RecentWork/all-banner-5.png";
-import image6 from "@/app/assets/RecentWork/all-banner-6.png";
-import image7 from "@/app/assets/RecentWork/all-banner-7.png";
+import { Marquee } from "@/components/ui/marquee";
 import ImageModal from "./ImageModal";
 
 export default function RecentWork() {
-  const [activeTab, setActiveTab] = useState("all");
-
-  const categories = ["all", "ui ux", "website", "graphic", "logo"];
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
-  const portfolioItems = [
-    {
-      src: image1.src,
-      alt: "Badal Agency website design portfolio preview",
-      grid: "col-span-2 row-span-3 row-start-1 col-start-1 h-80",
-    },
-    {
-      src: image4.src,
-      alt: "Badal Agency UI UX design showcase",
-      grid: "col-span-2 row-span-3 row-start-1 col-start-5 h-80",
-    },
-    {
-      src: image2.src,
-      alt: "Badal Agency responsive website project showcase",
-      grid: "col-span-2 row-span-3 row-start-4 col-start-1 h-80",
-    },
-    {
-      src: image5.src,
-      alt: "Badal Agency branding and digital design portfolio preview",
-      grid: "col-span-2 row-span-3 row-start-4 col-start-5 h-80",
-    },
-    {
-      src: image3.src,
-      alt: "Badal Agency web application design portfolio preview",
-      grid: "col-span-2 row-span-6 row-start-1 col-start-3",
-    },
-    {
-      src: image6.src,
-      alt: "Badal Agency creative graphic design project preview",
-      grid: "col-span-2 row-span-3 h-64",
-    },
-    {
-      src: image7.src,
-      alt: "Badal Agency digital product interface showcase",
-      grid: "col-span-2 row-span-3 col-start-3 h-64",
-    },
+
+  const longImages = [
+    "/longimage/Group 39532.png",
+    "/longimage/Rectangle 8830.png",
+    "/longimage/Rectangle 8832.png",
+    "/longimage/Rectangle 8834.png",
   ];
-  const gridImagesDesktop = portfolioItems.slice(0, 5);
-  const gridImagesDesktop2 = portfolioItems.slice(5);
+
+  const shortImagesRowOne = [
+    "/shortimage/Rectangle 8868.png",
+    "/shortimage/Rectangle 8869.png",
+    "/shortimage/Rectangle 8870.png",
+    "/shortimage/Rectangle 8871.png",
+    "/shortimage/Rectangle 8872.png",
+    "/shortimage/Rectangle 8873.png",
+    "/shortimage/Rectangle 8874.png",
+    "/shortimage/Rectangle 8875.png",
+  ];
+
+  const shortImagesRowTwo = [
+    "/shortimage/Rectangle 8876.png",
+    "/shortimage/Rectangle 8877.png",
+    "/shortimage/Rectangle 8878.png",
+    "/shortimage/Rectangle 8879.png",
+    "/shortimage/Rectangle 8880.png",
+    "/shortimage/Rectangle 8881.png",
+    "/shortimage/Rectangle 8882.png",
+    "/shortimage/Rectangle 8883.png",
+  ];
 
   const handleImageClick = (imageUrl: string) => {
     setSelectedImage(imageUrl);
     setIsOpen(true);
   };
 
+  const renderImage = (
+    src: string,
+    sizeClass: string,
+    sizes: string
+  ) => (
+    <button
+      key={src}
+      type="button"
+      onClick={() => handleImageClick(src)}
+      className={`relative shrink-0 overflow-hidden rounded-[20px] bg-soft-bg ${sizeClass}`}
+      aria-label="Open recent work image"
+    >
+      <Image
+        src={src}
+        alt="Badal Agency recent work preview"
+        fill
+        loading="lazy"
+        className="object-cover"
+        sizes={sizes}
+      />
+    </button>
+  );
+
   return (
     <section
       id="work"
       aria-labelledby="recent-work-heading"
-      className="max-w-7xl mx-auto pt-11"
+      className="w-full overflow-hidden pt-11"
     >
       <h2
         id="recent-work-heading"
@@ -73,82 +77,35 @@ export default function RecentWork() {
       >
         Our Recent Work
       </h2>
-      <div className="border-b-3 border-text-blue/20 flex justify-center items-center">
-        <nav
-          aria-label="Portfolio categories"
-          className="flex space-x-8 overflow-x-auto scrollbar-hide snap-x text-text-blue snap-mandatory scroll-smooth -webkit-overflow-scrolling-touch"
-        >
-          {categories.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`py-4 px-1 border-b-2 font-normal text-lg capitalize transition-colors duration-500 whitespace-nowrap snap-start flex-shrink-0 ${
-                activeTab === tab
-                  ? "border-soft-green text-text-blue"
-                  : "border-transparent text-gray-500 hover:text-soft-green"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </nav>
-      </div>
 
-      {/* Desktop Grid */}
-      <div className="hidden md:block w-full pt-6 flex flex-col gap-3 min-h-dvh">
-        <div className="grid grid-cols-6 grid-rows-6 gap-4">
-          {gridImagesDesktop.map((img) => (
-            <div
-              key={img.src}
-              onClick={() => handleImageClick(img.src)}
-              className={`overflow-hidden group relative bg-soft-bg rounded-[20px] ${img.grid}`}
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                width={1000}
-                height={1000}
-                loading="lazy"
-                className="w-full object-cover h-full transition"
-              />
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-4 grid-rows-2 gap-4 mt-6">
-          {gridImagesDesktop2.map((img) => (
-            <div
-              key={img.src}
-              className={`overflow-hidden group relative bg-soft-bg rounded-[20px] ${img.grid}`}
-              onClick={() => handleImageClick(img.src)}
-            >
-              <Image
-                src={img.src}
-                alt={img.alt}
-                width={1000}
-                height={1000}
-                loading="lazy"
-                className="w-full h-full  object-cover transition"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-      {/* Mobile: Stacked Images */}
-      <div className="md:hidden w-full flex flex-col gap-5 pt-6">
-        {portfolioItems.map((img, i) => (
-          <div key={i} className="rounded-[20px] overflow-hidden bg-soft-bg">
-            <Image
-              src={img.src}
-              alt={img.alt}
-              width={700}
-              height={700}
-              quality={60}
-              loading="lazy"
-              className="w-full h-auto object-cover transition"
-              sizes="100vw"
-            />
-          </div>
-        ))}
+      <div className="pt-8 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
+        <Marquee className="[--duration:34s] [--gap:1rem]" pauseOnHover>
+          {longImages.map((src) =>
+            renderImage(
+              src,
+              "h-48 w-[320px] md:h-72 md:w-[560px]",
+              "(min-width: 768px) 560px, 320px"
+            )
+          )}
+        </Marquee>
+        <Marquee className="[--duration:42s] [--gap:1rem]" reverse pauseOnHover>
+          {shortImagesRowOne.map((src) =>
+            renderImage(
+              src,
+              "h-72 w-[220px] md:h-[420px] md:w-[320px]",
+              "(min-width: 768px) 320px, 220px"
+            )
+          )}
+        </Marquee>
+        <Marquee className="[--duration:42s] [--gap:1rem]" pauseOnHover>
+          {shortImagesRowTwo.map((src) =>
+            renderImage(
+              src,
+              "h-72 w-[220px] md:h-[420px] md:w-[320px]",
+              "(min-width: 768px) 320px, 220px"
+            )
+          )}
+        </Marquee>
       </div>
       <ImageModal
         imageUrl={selectedImage}

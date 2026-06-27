@@ -2,11 +2,7 @@
 import { useState } from "react";
 import tick from "@/app/assets/service/tick.png";
 import Image from "next/image";
-import image1 from "@/app/assets/service/s-image1.png";
-import image2 from "@/app/assets/service/s-image2.png";
-import image3 from "@/app/assets/service/s-image3.png";
-import image4 from "@/app/assets/service/s-image4.png";
-import image5 from "@/app/assets/service/sofw.png";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { LazyMotion, domAnimation, m } from "framer-motion";
 
 const services = [
@@ -18,7 +14,6 @@ const services = [
       "Mobile appsw",
       "Custom software that solve real business problems",
     ],
-    image: image5.src,
   },
   {
     title: "UI UX Design",
@@ -28,7 +23,6 @@ const services = [
       "Visual Interface Design",
       "Wireframing & Prototyping",
     ],
-    image: image1.src,
   },
   {
     title: "Website Design",
@@ -38,7 +32,6 @@ const services = [
       "UI/UX design /responsive design",
       "Landing page design",
     ],
-    image: image2.src,
   },
   {
     title: "Web Development",
@@ -50,7 +43,6 @@ const services = [
       "WordPress, Shopify",
       "Optimization & Performance",
     ],
-    image: image3.src,
   },
   {
     title: "Graphic Design",
@@ -62,12 +54,17 @@ const services = [
       "T-shirt design",
       "Advertisement design",
     ],
-    image: image4.src,
   },
 ];
 
 export default function ServicesSection() {
-  const [showAll, setShowAll] = useState(false);
+  const [openCards, setOpenCards] = useState<Record<string, boolean>>(
+    () =>
+      services.reduce<Record<string, boolean>>((acc, service) => {
+        acc[service.title] = true;
+        return acc;
+      }, {})
+  );
 
   return (
     <LazyMotion features={domAnimation}>
@@ -85,9 +82,8 @@ export default function ServicesSection() {
         >
           Services
         </m.h2>
-        {/* Card container with transitions */}
         <div className="flex h-full flex-col gap-6">
-          {(showAll ? services : [services[0]]).map((service, idx) => {
+          {services.map((service, idx) => {
             const hasMoreThanThree = service.features.length > 3;
             const midPoint = Math.ceil(service.features.length / 2);
             const leftFeatures = hasMoreThanThree
@@ -96,11 +92,12 @@ export default function ServicesSection() {
             const rightFeatures = hasMoreThanThree
               ? service.features.slice(midPoint)
               : [];
+            const isOpen = openCards[service.title] ?? false;
 
             return (
               <m.div
                 key={service.title}
-                className="grid grid-cols-1 md:grid-cols-2 justify-between bg-white rounded-2xl pl-6 min-h-[250px] overflow-hidden"
+                className="bg-white px-6 py-7 text-text-blue sm:px-8 lg:px-10"
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -20, scale: 0.95 }}
@@ -110,10 +107,20 @@ export default function ServicesSection() {
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
               >
-                {/* Text Side */}
-                <div className="flex-1 py-8 pr-4">
+                <button
+                  type="button"
+                  className="flex w-full items-start justify-between gap-5 text-left"
+                  aria-expanded={isOpen}
+                  aria-controls={`service-card-${idx}`}
+                  onClick={() =>
+                    setOpenCards((current) => ({
+                      ...current,
+                      [service.title]: !current[service.title],
+                    }))
+                  }
+                >
                   <m.h3
-                    className="text-[32px] text-text-blue font-normal mb-1 truncate"
+                    className="text-2xl font-normal leading-tight sm:text-[32px]"
                     initial={{ opacity: 0, x: -15 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{
@@ -124,67 +131,52 @@ export default function ServicesSection() {
                   >
                     {service.title}
                   </m.h3>
-                  <m.p
-                    className="text-[20px] font-light text-text-blue mb-4"
-                    initial={{ opacity: 0, x: -15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      duration: 0.4,
-                      delay: idx * 0.1 + 0.3,
-                      ease: "easeOut",
-                    }}
-                  >
-                    {service.subtitle}
-                  </m.p>
-                  {/* Feature List - Two Columns if more than 3 */}
-                  <div
-                    className={`${
-                      hasMoreThanThree
-                        ? "grid grid-cols-2 gap-x-6 gap-y-2"
-                        : "space-y-2"
-                    }`}
-                  >
-                    {/* Left Column */}
-                    <ul className="space-y-2">
-                      {leftFeatures.map((feature, featureIdx) => (
-                        <m.li
-                          key={feature}
-                          className="flex items-center font-light text-lg text-text-blue"
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{
-                            duration: 0.3,
-                            delay: idx * 0.1 + 0.4 + featureIdx * 0.05,
-                            ease: "easeOut",
-                          }}
-                        >
-                          <span className="inline-block text-[#98c73d] mr-2 flex-shrink-0">
-                            <Image
-                              src={tick.src}
-                              width={20}
-                              height={20}
-                              alt=""
-                            />
-                          </span>
-                          {feature}
-                        </m.li>
-                      ))}
-                    </ul>
-                    {/* Right Column (only if more than 3) */}
-                    {hasMoreThanThree && (
+                  <span className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center text-text-blue sm:h-11 sm:w-11">
+                    {isOpen ? (
+                      <ChevronUp
+                        className="h-8 w-8 sm:h-10 sm:w-10"
+                        strokeWidth={3}
+                      />
+                    ) : (
+                      <ChevronDown
+                        className="h-8 w-8 sm:h-10 sm:w-10"
+                        strokeWidth={3}
+                      />
+                    )}
+                  </span>
+                </button>
+
+                {isOpen && (
+                  <div id={`service-card-${idx}`} className="pt-2">
+                    <m.p
+                      className="mb-5 text-lg font-light text-text-blue sm:text-[20px]"
+                      initial={{ opacity: 0, x: -15 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        duration: 0.4,
+                        delay: idx * 0.1 + 0.3,
+                        ease: "easeOut",
+                      }}
+                    >
+                      {service.subtitle}
+                    </m.p>
+                    <div
+                      className={`${
+                        hasMoreThanThree
+                          ? "grid gap-x-6 gap-y-2 sm:grid-cols-2"
+                          : "space-y-2"
+                      }`}
+                    >
                       <ul className="space-y-2">
-                        {rightFeatures.map((feature, featureIdx) => (
+                        {leftFeatures.map((feature, featureIdx) => (
                           <m.li
                             key={feature}
-                            className="flex items-center font-light text-lg text-text-blue"
+                            className="flex items-center text-base font-light text-text-blue sm:text-lg"
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{
                               duration: 0.3,
-                              delay:
-                                idx * 0.1 +
-                                0.4 +
-                                (leftFeatures.length + featureIdx) * 0.05,
+                              delay: idx * 0.1 + 0.4 + featureIdx * 0.05,
                               ease: "easeOut",
                             }}
                           >
@@ -200,49 +192,42 @@ export default function ServicesSection() {
                           </m.li>
                         ))}
                       </ul>
-                    )}
+                      {hasMoreThanThree && (
+                        <ul className="space-y-2">
+                          {rightFeatures.map((feature, featureIdx) => (
+                            <m.li
+                              key={feature}
+                              className="flex items-center text-base font-light text-text-blue sm:text-lg"
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{
+                                duration: 0.3,
+                                delay:
+                                  idx * 0.1 +
+                                  0.4 +
+                                  (leftFeatures.length + featureIdx) * 0.05,
+                                ease: "easeOut",
+                              }}
+                            >
+                              <span className="inline-block text-[#98c73d] mr-2 flex-shrink-0">
+                                <Image
+                                  src={tick.src}
+                                  width={20}
+                                  height={20}
+                                  alt=""
+                                />
+                              </span>
+                              {feature}
+                            </m.li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
                   </div>
-                </div>
-                {/* Image Side (only on desktop) */}
-                <m.div
-                  className="hidden md:flex w-full h-full md:max-h-[300px] aspect-video rounded-xl overflow-hidden bg-green-100 items-center justify-center"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: idx * 0.1 + 0.3,
-                    ease: "easeOut",
-                  }}
-                >
-                  <Image
-                    src={service.image}
-                    alt={`${service.title} illustration`}
-                    width={1400}
-                    height={1400}
-                    className=" aspect-video w-full h-full transition"
-                    loading="lazy"
-                    sizes="800px"
-                  />
-                </m.div>
+                )}
               </m.div>
             );
           })}
-        </div>
-        {/* See More Button */}
-        <div className="flex justify-center mt-6">
-          {!showAll && (
-            <m.button
-              className="text-xl px-6 py-2 rounded-lg text-white font-medium"
-              onClick={() => setShowAll(true)}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-            >
-              See More
-            </m.button>
-          )}
         </div>
       </section>
     </LazyMotion>
